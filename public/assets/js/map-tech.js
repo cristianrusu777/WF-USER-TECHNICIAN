@@ -332,6 +332,9 @@ function openWall() {
   const colsInput = document.querySelector('#wallCols');
   const critToggle = document.querySelector('#wallCriticalFirst');
   const alertsToggle = document.querySelector('#wallAlerts');
+  const searchInput = document.querySelector('#wallSearch');
+  const statusSel = document.querySelector('#wallStatus');
+  const regionSel = document.querySelector('#wallRegion');
   const grid = document.querySelector('#wallGrid');
 
   overlay.style.display = 'block';
@@ -341,6 +344,9 @@ function openWall() {
   colsInput.addEventListener('input', () => renderWallGrid({ cols: Number(colsInput.value), critical: !!critToggle.checked }));
   critToggle.addEventListener('change', () => renderWallGrid({ cols: Number(colsInput.value), critical: !!critToggle.checked }));
   alertsToggle.addEventListener('change', () => setupTicker(!!alertsToggle.checked));
+  searchInput?.addEventListener('input', () => renderWallGrid({ cols: Number(colsInput.value), critical: !!critToggle.checked }));
+  statusSel?.addEventListener('change', () => renderWallGrid({ cols: Number(colsInput.value), critical: !!critToggle.checked }));
+  regionSel?.addEventListener('change', () => renderWallGrid({ cols: Number(colsInput.value), critical: !!critToggle.checked }));
 }
 
 function closeWall() {
@@ -357,6 +363,18 @@ function renderWallGrid({ cols = 3, critical = false } = {}) {
 
   let cams = [...techCameras];
   if (critical) cams.sort((a,b)=> wallSeverity(b) - wallSeverity(a));
+  // Apply overlay filters if present
+  const q = (document.querySelector('#wallSearch')?.value || '').toLowerCase();
+  const st = document.querySelector('#wallStatus')?.value || '';
+  const rg = document.querySelector('#wallRegion')?.value || '';
+  const deleted = loadDeletedCams();
+  cams = cams.filter(c => {
+    if (deleted.has(c.name)) return false;
+    if (q && !c.name.toLowerCase().includes(q)) return false;
+    if (st && getDisplayStatus(c) !== st) return false;
+    if (rg && c.region !== rg) return false;
+    return true;
+  });
 
   grid.innerHTML = '';
   cams.forEach(c => {
@@ -452,8 +470,14 @@ function openWallModal() {
 
   const cols = document.getElementById('mwCols');
   const crit = document.getElementById('mwCriticalFirst');
+  const search = document.getElementById('mwSearch');
+  const status = document.getElementById('mwStatus');
+  const region = document.getElementById('mwRegion');
   cols?.addEventListener('input', renderModalWallGrid);
   crit?.addEventListener('change', renderModalWallGrid);
+  search?.addEventListener('input', renderModalWallGrid);
+  status?.addEventListener('change', renderModalWallGrid);
+  region?.addEventListener('change', renderModalWallGrid);
 
   // Clean up any lingering overlay/backdrop when modal closes
   modalEl.addEventListener('hidden.bs.modal', () => {
@@ -476,6 +500,18 @@ function renderModalWallGrid() {
   const colMap = {2:'col-6',3:'col-4',4:'col-3',5:'col-xxl-2 col-lg-3 col-4',6:'col-2'};
   let cams = [...techCameras];
   if (critical) cams.sort((a,b)=> wallSeverity(b) - wallSeverity(a));
+  // Filters
+  const q = (document.getElementById('mwSearch')?.value || '').toLowerCase();
+  const st = document.getElementById('mwStatus')?.value || '';
+  const rg = document.getElementById('mwRegion')?.value || '';
+  const deleted = loadDeletedCams();
+  cams = cams.filter(c => {
+    if (deleted.has(c.name)) return false;
+    if (q && !c.name.toLowerCase().includes(q)) return false;
+    if (st && getDisplayStatus(c) !== st) return false;
+    if (rg && c.region !== rg) return false;
+    return true;
+  });
   grid.innerHTML = '';
   cams.forEach(c => {
     const ds = getDisplayStatus(c);
