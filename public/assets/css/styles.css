@@ -26,8 +26,17 @@
 .metric-crit { background: #fee2e2; color: #991b1b; }
 
 /* Key–Value pills for camera properties */
-.kv { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.1rem 0.6rem; background: #f6f8fa; border-radius: 999px; border: 1px solid #d7dde5; color: #334155; font-size: 0.82rem; }
+.kv { display: inline-flex; align-items: center; gap: 0.05rem; padding: 0.1rem 0.6rem; background: #f6f8fa; border-radius: 999px; border: 1px solid #d7dde5; color: #334155; font-size: 0.82rem; }
 .kv .kv-label { font-weight: 800; color: #0f172a; text-transform: uppercase; font-size: 0.72rem; letter-spacing: .02em; }
+/* Compact layout: smaller pills and two per row */
+.kv-grid { display: flex; flex-wrap: wrap; gap: 0.2rem; }
+.kv-compact { padding: 0.03rem 0.4rem; font-size: 0.7rem; }
+.kv-compact .kv-label { font-size: 0.64rem; }
+.kv-grid .kv-compact { flex: 0 1 calc(50% - 0.25rem); }
+
+/* Tech map list layout: emphasize details, minimize actions */
+.tech-item-content { flex: 0 1 calc(100% - 5rem); padding-right: 0.75rem; }
+.tech-actions { flex: 0 0 5rem; width: 6rem; margin-left: 0.5rem; padding-left: 0.75rem; gap: 0.4rem; border-left: 1px solid #e5e7eb; }
 .wall-title { font-weight: 700; }
 .wall-controls { display: inline-flex; gap: 0.75rem; align-items: center; }
 .wall-controls label { display: inline-flex; align-items: center; gap: 0.35rem; margin: 0; }
@@ -497,7 +506,7 @@ tbody {
 /* Technician UI: inline action buttons */
 .action-row {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.1rem;
     align-items: center;
 }
 

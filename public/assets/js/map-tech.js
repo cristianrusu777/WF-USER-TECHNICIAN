@@ -297,10 +297,10 @@ function createMarker(c){
           <strong>${c.name}</strong><br>
           <small>${c.region}</small><br>
           <span class="status-badge ${statusClass}">${ds}</span><br>
-          <div style="display:flex;gap:.25rem;flex-wrap:wrap;margin-top:.25rem;">
-            <span class="kv"><span class="kv-label">BR</span> <span class="${metricClass('bitrate', c.bitrateMbps)}">${c.bitrateMbps}</span> Mbps</span>
-            <span class="kv"><span class="kv-label">Temp</span> <span class="${metricClass('temp', c.temperatureC)}">${c.temperatureC}</span>°C</span>
-            <span class="kv"><span class="kv-label">Disk</span> <span class="${metricClass('storage', c.storageUsed)}">${c.storageUsed}</span>%</span>
+          <div class="kv-grid" style="margin-top:.25rem;">
+            <span class="kv kv-compact"><span class="kv-label">BR</span> <span class="${metricClass('bitrate', c.bitrateMbps)}">${c.bitrateMbps}</span> Mbps</span>
+            <span class="kv kv-compact"><span class="kv-label">Temp</span> <span class="${metricClass('temp', c.temperatureC)}">${c.temperatureC}</span>°C</span>
+            <span class="kv kv-compact"><span class="kv-label">Disk</span> <span class="${metricClass('storage', c.storageUsed)}">${c.storageUsed}</span>%</span>
           </div>
           <div class="action-row" style="margin-top:0.5rem;">
             <button class="vbutton ${isBookmarked ? 'bookmarked' : ''}" onclick="view('${c.name}')">👁️ View</button>
@@ -587,19 +587,22 @@ function renderList() {
     const li = document.createElement("li");
     li.className = `list-group-item list-group-item-action ${bookmarked.has(c.name) ? 'gold' : ''}`;
     li.innerHTML = `
-      <div class="d-flex w-100 justify-content-between align-items-center">
-        <div>
-          <div class="fw-semibold">${c.name} <span class="status-badge ${getDisplayStatus(c) === 'online' ? 'status-online' : (getDisplayStatus(c) === 'degraded' ? 'status-degraded' : 'status-offline')}">${getDisplayStatus(c)}</span></div>
-          <div class="small" style="display:flex;gap:.25rem;flex-wrap:wrap;">
-            <span class="kv"><span class="kv-label">Region</span> ${c.region}</span>
-            <span class="kv"><span class="kv-label">BR</span> <span class="${metricClass('bitrate', c.bitrateMbps)}">${c.bitrateMbps}</span> Mbps</span>
-            <span class="kv"><span class="kv-label">Temp</span> <span class="${metricClass('temp', c.temperatureC)}">${c.temperatureC}</span>°C</span>
-            <span class="kv"><span class="kv-label">Disk</span> <span class="${metricClass('storage', c.storageUsed)}">${c.storageUsed}</span>%</span>
+      <div class="d-flex w-100 justify-content-between align-items-start">
+        <div class="tech-item-content flex-grow-1 pe-2">
+          <div class="fw-semibold">${c.name}</div>
+          <div class="small kv-grid mt-1">
+            <span class="kv kv-compact"><span class="kv-label">BR</span> <span class="${metricClass('bitrate', c.bitrateMbps)}">${c.bitrateMbps}</span> Mbps</span>
+            <span class="kv kv-compact"><span class="kv-label">Disk</span> <span class="${metricClass('storage', c.storageUsed)}">${c.storageUsed}</span>%</span>
+            <span class="kv kv-compact"><span class="kv-label">Temp</span> <span class="${metricClass('temp', c.temperatureC)}">${c.temperatureC}</span>°C</span>
+            <span class="kv kv-compact"><span class="kv-label"></span> ${c.region}</span>
           </div>
         </div>
-        <div class="action-row">
-          <button class="vbutton ${bookmarked.has(c.name) ? 'bookmarked' : ''}" onclick="view('${c.name}')">👁️</button>
-          <button class="vbutton ${bookmarked.has(c.name) ? 'bookmarked' : ''}" onclick="toggleBookmark('${c.name}')">${bookmarked.has(c.name) ? 'Bookmarked' : 'Bookmark'}</button>
+        <div class="tech-actions d-flex flex-column align-items-end">
+          <span class="status-badge ${getDisplayStatus(c) === 'online' ? 'status-online' : (getDisplayStatus(c) === 'degraded' ? 'status-degraded' : 'status-offline')}">${getDisplayStatus(c)}</span>
+          <div class="action-row">
+            <button class="vbutton ${bookmarked.has(c.name) ? 'bookmarked' : ''}" onclick="view('${c.name}')" title="View">👁️</button>
+            <button class="vbutton ${bookmarked.has(c.name) ? 'bookmarked' : ''}" onclick="toggleBookmark('${c.name}')" title="${bookmarked.has(c.name) ? 'Remove bookmark' : 'Add bookmark'}">🔖</button>
+          </div>
         </div>
       </div>`;
     list.appendChild(li);
