@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82b24e4d-94d9-476c-98fe-dd50323e791b" name="Changes" comment="Add technician UI pages for map, data, and camera management with mock functionalities">
+    <list default="true" id="82b24e4d-94d9-476c-98fe-dd50323e791b" name="Changes" comment="Feat: Adds technician login UI">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/authentication.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/authentication.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/data-tech.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/data-tech.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/map-tech.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/map-tech.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/data-tech.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data-tech.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/map-tech.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/map-tech.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,12 +25,12 @@
     &quot;assignee&quot;: &quot;nielsclarysse&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/cristianrusu777/POC-WF-TEHNICIAN.git",
-    "accountId": "68112201-5b2c-4f46-8e9a-4ac0c3410339"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/cristianrusu777/POC-WF-TEHNICIAN.git&quot;,
+    &quot;accountId&quot;: &quot;68112201-5b2c-4f46-8e9a-4ac0c3410339&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -36,23 +39,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/niels/WebstormProjects/POC-WF/public/assets/css",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/niels/WebstormProjects/POC-WF/public/assets/css&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\niels\WebstormProjects\POC-WF\public\assets\css" />
@@ -102,7 +105,8 @@
       <workItem from="1762082186291" duration="1302000" />
       <workItem from="1762083576433" duration="465000" />
       <workItem from="1762354348709" duration="1439000" />
-      <workItem from="1762430963116" duration="3746000" />
+      <workItem from="1762430963116" duration="4534000" />
+      <workItem from="1762436165131" duration="772000" />
     </task>
     <task id="LOCAL-00001" summary="Snapshot :-)">
       <option name="closed" value="true" />
@@ -400,14 +404,21 @@
       <option name="project" value="LOCAL" />
       <updated>1762434844094</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Feat: Adds technician login UI">
+      <option name="closed" value="true" />
+      <created>1762435405935</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1762435405935</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Final: adds the bookmarks!" />
     <MESSAGE value="Final: style improvements to the map" />
     <MESSAGE value="Final: style improvements to the footer" />
     <MESSAGE value="Final: style improvements to the scrollbar" />
@@ -432,6 +443,7 @@
     <MESSAGE value="Final: adds search option for the species list" />
     <MESSAGE value="Merge branch 'main' of github.com:nielsclarysse/POC-WF&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
     <MESSAGE value="Add technician UI pages for map, data, and camera management with mock functionalities" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add technician UI pages for map, data, and camera management with mock functionalities" />
+    <MESSAGE value="Feat: Adds technician login UI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feat: Adds technician login UI" />
   </component>
 </project>

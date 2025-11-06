@@ -109,14 +109,161 @@ function initializeMap() {
   });
 }
 
+// ===== Camera Wall (Fullscreen overlay) =====
+let wallTickerInterval;
+
+function wallSeverity(c) {
+  let s = c.status === 'offline' ? 3 : (c.status === 'degraded' ? 1 : 0);
+  if (c.storageUsed >= 90) s += 2; else if (c.storageUsed >= 70) s += 1;
+  if (c.temperatureC >= 40) s += 2; else if (c.temperatureC >= 35) s += 1;
+  if (c.bitrateMbps < 2) s += 2; else if (c.bitrateMbps < 4) s += 1;
+  return s;
+}
+
+function openWall() {
+  // If modal exists, prefer modal popup instead of overlay (non-breaking)
+  if (document.getElementById('cameraWallModal')) {
+    openWallModal();
+    return;
+  }
+  const overlay = document.querySelector('#cameraWall');
+  const colsInput = document.querySelector('#wallCols');
+  const critToggle = document.querySelector('#wallCriticalFirst');
+  const alertsToggle = document.querySelector('#wallAlerts');
+  const grid = document.querySelector('#wallGrid');
+
+  overlay.style.display = 'block';
+  renderWallGrid({ cols: Number(colsInput.value), critical: !!critToggle.checked });
+  setupTicker(!!alertsToggle.checked);
+
+  colsInput.addEventListener('input', () => renderWallGrid({ cols: Number(colsInput.value), critical: !!critToggle.checked }));
+  critToggle.addEventListener('change', () => renderWallGrid({ cols: Number(colsInput.value), critical: !!critToggle.checked }));
+  alertsToggle.addEventListener('change', () => setupTicker(!!alertsToggle.checked));
+}
+
+function closeWall() {
+  const overlay = document.querySelector('#cameraWall');
+  overlay.style.display = 'none';
+  if (wallTickerInterval) clearInterval(wallTickerInterval);
+  wallTickerInterval = undefined;
+}
+
+function renderWallGrid({ cols = 3, critical = false } = {}) {
+  const grid = document.querySelector('#wallGrid');
+  if (!grid) return;
+  grid.style.gridTemplateColumns = `repeat(${cols}, minmax(0,1fr))`;
+
+  let cams = [...techCameras];
+  if (critical) cams.sort((a,b)=> wallSeverity(b) - wallSeverity(a));
+
+  grid.innerHTML = '';
+  cams.slice(0, cols * 4).forEach(c => {
+    const tile = document.createElement('div');
+    tile.className = `wall-tile ${wallSeverity(c) >= 4 ? 'crit' : ''}`;
+    const statusClass = c.status === 'online' ? 'status-online' : (c.status === 'degraded' ? 'status-degraded' : 'status-offline');
+    tile.innerHTML = `
+      <div class="tile-head">
+        <div class="fw-semibold">${c.name}</div>
+        <span class="status-badge ${statusClass}">${c.status}</span>
+      </div>
+      <video src="v.mp4" muted autoplay loop playsinline></video>
+      <div class="tile-meta">
+        <span class="${metricClass('bitrate', c.bitrateMbps)}">${c.bitrateMbps} Mbps</span>
+        <span class="${metricClass('temp', c.temperatureC)}">${c.temperatureC}°C</span>
+        <span class="${metricClass('storage', c.storageUsed)}">${c.storageUsed}%</span>
+      </div>
+      <div class="action-row">
+        <button class="vbutton" onclick="view('${c.name}')">👁️ View</button>
+        <button class="vbutton ${bookmarked.has(c.name) ? 'bookmarked' : ''}" onclick="toggleBookmark('${c.name}')">${bookmarked.has(c.name) ? 'Bookmarked' : 'Bookmark'}</button>
+      </div>
+    `;
+    grid.appendChild(tile);
+  });
+}
+
+function setupTicker(enabled){
+  const el = document.querySelector('#wallTicker');
+  if (!el) return;
+  if (wallTickerInterval) { clearInterval(wallTickerInterval); wallTickerInterval = undefined; }
+  el.innerHTML = '';
+  if (!enabled) return;
+  const makeMsg = () => {
+    const c = techCameras[Math.floor(Math.random()*techCameras.length)];
+    const emojis = ['🐾','🦉','🦊','🐻','🦌','🦅','🐗','🦁','🐧','🦘'];
+    const e = emojis[Math.floor(Math.random()*emojis.length)];
+    return `<span>${e} ${new Date().toLocaleTimeString()} • ${c.name} · Temp ${c.temperatureC}°C · Storage ${c.storageUsed}%</span>`;
+  };
+  el.innerHTML = makeMsg() + makeMsg() + makeMsg();
+  wallTickerInterval = setInterval(()=>{
+    el.innerHTML = makeMsg() + makeMsg() + makeMsg();
+  }, 8000);
+}
+
+// Hook up open/close
+document.querySelector('#openWallBtn')?.addEventListener('click', openWall);
+document.querySelector('#closeWallBtn')?.addEventListener('click', closeWall);
+
+// ===== Camera Wall (Modal variant using Bootstrap) =====
+function openWallModal() {
+  const modalEl = document.getElementById('cameraWallModal');
+  if (!modalEl) return;
+  // eslint-disable-next-line no-undef
+  const modal = new bootstrap.Modal(modalEl);
+  modal.show();
+  renderModalWallGrid();
+
+  const cols = document.getElementById('mwCols');
+  const crit = document.getElementById('mwCriticalFirst');
+  cols?.addEventListener('input', renderModalWallGrid);
+  crit?.addEventListener('change', renderModalWallGrid);
+}
+
+function renderModalWallGrid() {
+  const grid = document.getElementById('mwGrid');
+  if (!grid) return;
+  const cols = Number(document.getElementById('mwCols')?.value || 3);
+  const critical = !!document.getElementById('mwCriticalFirst')?.checked;
+  const colMap = {2:'col-6',3:'col-4',4:'col-3',5:'col-xxl-2 col-lg-3 col-4',6:'col-2'};
+  let cams = [...techCameras];
+  if (critical) cams.sort((a,b)=> wallSeverity(b) - wallSeverity(a));
+  grid.innerHTML = '';
+  cams.slice(0, cols * 4).forEach(c => {
+    const statusClass = c.status === 'online' ? 'status-online' : (c.status === 'degraded' ? 'status-degraded' : 'status-offline');
+    const div = document.createElement('div');
+    div.className = colMap[cols] || 'col-4';
+    div.innerHTML = `
+      <div class="border rounded p-2 h-100 d-flex flex-column">
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <div class="fw-semibold small">${c.name}</div>
+          <span class="status-badge ${statusClass}">${c.status}</span>
+        </div>
+        <video src="v.mp4" class="w-100 mb-1" muted autoplay loop playsinline></video>
+        <div class="small mb-2" style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+          <span class="${metricClass('bitrate', c.bitrateMbps)}">${c.bitrateMbps} Mbps</span>
+          <span class="${metricClass('temp', c.temperatureC)}">${c.temperatureC}°C</span>
+          <span class="${metricClass('storage', c.storageUsed)}">${c.storageUsed}%</span>
+        </div>
+        <div class="action-row mt-auto">
+          <button class="vbutton ${bookmarked.has(c.name) ? 'bookmarked' : ''}" onclick="view('${c.name}')">👁️ View</button>
+          <button class="vbutton ${bookmarked.has(c.name) ? 'bookmarked' : ''}" onclick="toggleBookmark('${c.name}')">${bookmarked.has(c.name) ? 'Bookmarked' : 'Bookmark'}</button>
+        </div>
+      </div>`;
+    grid.appendChild(div);
+  });
+}
+
+// Open modal via the same button without removing overlay behavior
+document.querySelector('#openWallBtn')?.addEventListener('click', openWallModal);
+
 function attachFilters() {
   const $search = document.querySelector("#searchTech");
   const $status = document.querySelector("#statusFilter");
   const $region = document.querySelector("#regionFilter");
   const $onlyBook = document.querySelector("#onlyBookmarked");
+  const $criticalFirst = document.querySelector("#criticalFirst");
 
-  [$search, $status, $region, $onlyBook].forEach(el => el && el.addEventListener("input", renderList));
-  [$status, $region, $onlyBook].forEach(el => el && el.addEventListener("change", renderList));
+  [$search, $status, $region, $onlyBook, $criticalFirst].forEach(el => el && el.addEventListener("input", renderList));
+  [$status, $region, $onlyBook, $criticalFirst].forEach(el => el && el.addEventListener("change", renderList));
 }
 
 function filteredCameras() {
@@ -124,14 +271,32 @@ function filteredCameras() {
   const status = document.querySelector("#statusFilter")?.value;
   const region = document.querySelector("#regionFilter")?.value;
   const onlyBook = document.querySelector("#onlyBookmarked")?.checked;
+  const criticalFirst = document.querySelector("#criticalFirst")?.checked;
 
-  return techCameras.filter(c => {
+  const cams = techCameras.filter(c => {
     if (q && !c.name.toLowerCase().includes(q)) return false;
     if (status && c.status !== status) return false;
     if (region && c.region !== region) return false;
     if (onlyBook && !bookmarked.has(c.name)) return false;
     return true;
-  }).sort((a, b) => {
+  });
+
+  const severity = (c) => {
+    // Status weight
+    let s = c.status === 'offline' ? 3 : (c.status === 'degraded' ? 1 : 0);
+    // Metric weights
+    if (c.storageUsed >= 90) s += 2; else if (c.storageUsed >= 70) s += 1;
+    if (c.temperatureC >= 40) s += 2; else if (c.temperatureC >= 35) s += 1;
+    if (c.bitrateMbps < 2) s += 2; else if (c.bitrateMbps < 4) s += 1;
+    return s;
+  };
+
+  return cams.sort((a, b) => {
+    if (criticalFirst) {
+      const sd = severity(b) - severity(a);
+      if (sd !== 0) return sd;
+    }
+    // Keep bookmarked priority next
     const aBook = bookmarked.has(a.name);
     const bBook = bookmarked.has(b.name);
     if (aBook && !bBook) return -1;

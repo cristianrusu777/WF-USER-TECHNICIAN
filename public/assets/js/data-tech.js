@@ -124,6 +124,18 @@ function init(){
     const from = document.querySelector("#t_fromDate").value;
     const to = document.querySelector("#t_toDate").value;
     const data = generateData(regions, status, from, to);
+    const criticalFirst = document.querySelector('#t_criticalFirst')?.checked;
+    if (criticalFirst) {
+      const sev = (r) => {
+        let s = r.status === 'offline' ? 3 : (r.status === 'degraded' ? 1 : 0);
+        if (r.storage >= 90) s += 2; else if (r.storage >= 70) s += 1;
+        if (r.temp >= 40) s += 2; else if (r.temp >= 35) s += 1;
+        if (r.bitrate < 2) s += 2; else if (r.bitrate < 4) s += 1;
+        if (r.uptime < 6) s += 2; else if (r.uptime < 24) s += 1;
+        return s;
+      };
+      data.sort((a,b)=> sev(b)-sev(a));
+    }
     renderTable(data);
     renderChart(data);
   });

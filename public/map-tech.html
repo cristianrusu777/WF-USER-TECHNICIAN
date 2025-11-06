@@ -64,6 +64,11 @@
                     <input class="form-check-input" type="checkbox" id="onlyBookmarked">
                     <label class="form-check-label" for="onlyBookmarked">Bookmarked only</label>
                 </div>
+                <div class="form-check form-switch mb-3">
+                    <input class="form-check-input" type="checkbox" id="criticalFirst">
+                    <label class="form-check-label" for="criticalFirst">Critical first</label>
+                </div>
+                <button id="openWallBtn" class="btn-tech w-100 mb-2">Open Camera Wall</button>
             </div>
             <div id="cameraListContainer">
                 <ul class="list-group" id="techCameraList"></ul>
@@ -71,6 +76,52 @@
         </div>
     </div>
 </main>
+
+<!-- Camera Wall Popup (Bootstrap Modal) -->
+<div class="modal fade" id="cameraWallModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Camera Wall</h5>
+        <div class="d-flex align-items-center" style="gap:0.75rem;">
+          <label class="form-check form-switch m-0">
+            <input class="form-check-input" type="checkbox" id="mwCriticalFirst">
+            <span class="form-check-label">Critical first</span>
+          </label>
+          <label class="m-0">Columns: <input id="mwCols" type="range" min="2" max="6" value="3"></label>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="mwGrid" class="row g-2"></div>
+      </div>
+    </div>
+  </div>
+ </div>
+
+<!-- Fullscreen Camera Wall Overlay -->
+<div id="cameraWall" style="display:none;">
+    <div class="wall">
+        <div class="wall-header d-flex justify-content-between align-items-center">
+            <h5 class="m-0">Camera Wall</h5>
+            <div class="d-flex align-items-center" style="gap:0.5rem;">
+                <label class="form-check form-switch m-0">
+                    <input class="form-check-input" type="checkbox" id="wallCriticalFirst">
+                    <span class="form-check-label">Critical first</span>
+                </label>
+                <label class="m-0">Columns: <input id="wallCols" type="range" min="2" max="6" value="3"/></label>
+                <label class="form-check form-switch m-0">
+                    <input class="form-check-input" type="checkbox" id="wallAlerts" checked>
+                    <span class="form-check-label">Live alerts</span>
+                </label>
+                <button id="closeWallBtn" class="vbutton">Close</button>
+            </div>
+        </div>
+        <div id="wallTicker" class="wall-ticker">🐾 Live alerts will appear here...</div>
+        <div id="wallGrid" class="wall-grid"></div>
+    </div>
+    <div class="wall-backdrop"></div>
+    </div>
 
 <footer class="text-center">
     <small>&copy; 2025 Wildlife Detection System - All Rights Reserved</small>
