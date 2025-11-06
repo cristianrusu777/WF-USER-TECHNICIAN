@@ -28,7 +28,13 @@
         <div class="table-responsive">
           <table class="table table-striped table-sm mb-0">
             <thead class="table-dark">
-              <tr><th>Name</th><th>Latitude</th><th>Longitude</th><th>Type</th><th style="width:160px;">Actions</th></tr>
+              <tr>
+                <th data-key="name" style="cursor:pointer;">Name</th>
+                <th data-key="lat" style="cursor:pointer;">Latitude</th>
+                <th data-key="lng" style="cursor:pointer;">Longitude</th>
+                <th data-key="type" style="cursor:pointer;">Type</th>
+                <th style="width:220px;">Actions</th>
+              </tr>
             </thead>
             <tbody id="adminCamBody"></tbody>
           </table>
@@ -63,12 +69,13 @@
 <header>
     <nav class="navbar navbar-expand">
         <div class="container-fluid">
-            <span class="navbar-brand">Wildlife Detection System <span class="role-badge">Technician</span></span>
+            <span class="navbar-brand">Wildlife Detection System</span>
             <ul class="navbar-nav me-auto">
                 <li class="nav-item"><a class="nav-link active" href="./map-tech.html">Tech Map</a></li>
                 <li class="nav-item"><a class="nav-link" href="./data-tech.html">Tech Data</a></li>
                 <li class="nav-item"><a class="nav-link" href="./camera-tech.html">Tech Camera</a></li>
             </ul>
+            <span class="role-badge me-2">Technician</span>
             <a id="logout" class="btn" href="./authentication.html">Logout</a>
         </div>
     </nav>

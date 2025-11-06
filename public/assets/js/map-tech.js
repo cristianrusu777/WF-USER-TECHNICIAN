@@ -65,6 +65,7 @@ function makeTechCamera(c) {
 const techCameras = DataFetcher.cameras.map(makeTechCamera);
 
 // ===== Admin (beheerder) custom cameras management =====
+let adminSort = { key: null, dir: 'asc' };
 function loadStatusOverrides(){
   try { return JSON.parse(localStorage.getItem('statusOverrides')||'{}'); } catch { return {}; }
 }
@@ -188,13 +189,24 @@ function renderAdminTable(){
   ];
   // Exclude deleted
   all = all.filter(x=> !deleted.has(x.name));
-  // Custom cameras first, then alphabetical
-  all.sort((a,b)=>{
-    if (a.custom && !b.custom) return -1;
-    if (!a.custom && b.custom) return 1;
-    if (a.custom && b.custom) return (Number(b.createdAt||0) - Number(a.createdAt||0));
-    return a.name.localeCompare(b.name);
-  });
+  // Sort according to adminSort or default (custom-first)
+  if (adminSort.key) {
+    const { key, dir } = adminSort;
+    all.sort((a,b)=>{
+      let va, vb;
+      if (key === 'type') { va = a.custom?1:0; vb = b.custom?1:0; } else { va = a[key]; vb = b[key]; }
+      if (typeof va === 'string') { const r = va.localeCompare(String(vb)); return dir==='asc'? r : -r; }
+      const diff = (Number(va)||0) - (Number(vb)||0);
+      return dir==='asc' ? diff : -diff;
+    });
+  } else {
+    all.sort((a,b)=>{
+      if (a.custom && !b.custom) return -1;
+      if (!a.custom && b.custom) return 1;
+      if (a.custom && b.custom) return (Number(b.createdAt||0) - Number(a.createdAt||0));
+      return a.name.localeCompare(b.name);
+    });
+  }
   if (all.length === 0){
     const tr = document.createElement('tr');
     tr.innerHTML = '<td colspan="5" class="text-center text-muted">No cameras.</td>';
@@ -262,6 +274,15 @@ function renderAdminTable(){
     });
     body.appendChild(tr);
   });
+  // Hook up sortable headers
+  const thead = body.closest('table')?.querySelector('thead');
+  thead?.querySelectorAll('th[data-key]')?.forEach(th=>{
+    th.onclick = ()=>{
+      const key = th.getAttribute('data-key');
+      adminSort = adminSort.key === key ? { key, dir: (adminSort.dir==='asc'?'desc':'asc') } : { key, dir: 'asc' };
+      renderAdminTable();
+    };
+  });
 }
 
 function createMarker(c){
@@ -276,8 +297,11 @@ function createMarker(c){
           <strong>${c.name}</strong><br>
           <small>${c.region}</small><br>
           <span class="status-badge ${statusClass}">${ds}</span><br>
-          Bitrate: <span class="${metricClass('bitrate', c.bitrateMbps)}">${c.bitrateMbps}</span> Mbps · Temp: <span class="${metricClass('temp', c.temperatureC)}">${c.temperatureC}</span>°C<br>
-          Storage: <span class="${metricClass('storage', c.storageUsed)}">${c.storageUsed}</span>%<br>
+          <div style="display:flex;gap:.25rem;flex-wrap:wrap;margin-top:.25rem;">
+            <span class="kv"><span class="kv-label">BR</span> <span class="${metricClass('bitrate', c.bitrateMbps)}">${c.bitrateMbps}</span> Mbps</span>
+            <span class="kv"><span class="kv-label">Temp</span> <span class="${metricClass('temp', c.temperatureC)}">${c.temperatureC}</span>°C</span>
+            <span class="kv"><span class="kv-label">Disk</span> <span class="${metricClass('storage', c.storageUsed)}">${c.storageUsed}</span>%</span>
+          </div>
           <div class="action-row" style="margin-top:0.5rem;">
             <button class="vbutton ${isBookmarked ? 'bookmarked' : ''}" onclick="view('${c.name}')">👁️ View</button>
             <button class="vbutton ${isBookmarked ? 'bookmarked' : ''}" onclick="toggleBookmark('${c.name}')">${isBookmarked ? 'Bookmarked' : 'Bookmark'}</button>
@@ -548,12 +572,13 @@ function filteredCameras() {
 }
 
 function renderList() {
-  const list = document.querySelector("#techCameraList");
-  list.innerHTML = "";
+  const list = document.getElementById("techCameraList");
+  if (!list) return;
+  list.innerHTML = '';
   const cams = filteredCameras();
   if (cams.length === 0) {
     const li = document.createElement("li");
-    li.className = "list-group-item";
+    li.className = "list-group-item list-group-item-action";
     li.textContent = "No cameras match filters";
     list.appendChild(li);
     return;
@@ -565,7 +590,12 @@ function renderList() {
       <div class="d-flex w-100 justify-content-between align-items-center">
         <div>
           <div class="fw-semibold">${c.name} <span class="status-badge ${getDisplayStatus(c) === 'online' ? 'status-online' : (getDisplayStatus(c) === 'degraded' ? 'status-degraded' : 'status-offline')}">${getDisplayStatus(c)}</span></div>
-          <small>${c.region} · <span class="${metricClass('bitrate', c.bitrateMbps)}">${c.bitrateMbps}</span> Mbps · <span class="${metricClass('temp', c.temperatureC)}">${c.temperatureC}</span>°C · <span class="${metricClass('storage', c.storageUsed)}">${c.storageUsed}</span>% disk</small>
+          <div class="small" style="display:flex;gap:.25rem;flex-wrap:wrap;">
+            <span class="kv"><span class="kv-label">Region</span> ${c.region}</span>
+            <span class="kv"><span class="kv-label">BR</span> <span class="${metricClass('bitrate', c.bitrateMbps)}">${c.bitrateMbps}</span> Mbps</span>
+            <span class="kv"><span class="kv-label">Temp</span> <span class="${metricClass('temp', c.temperatureC)}">${c.temperatureC}</span>°C</span>
+            <span class="kv"><span class="kv-label">Disk</span> <span class="${metricClass('storage', c.storageUsed)}">${c.storageUsed}</span>%</span>
+          </div>
         </div>
         <div class="action-row">
           <button class="vbutton ${bookmarked.has(c.name) ? 'bookmarked' : ''}" onclick="view('${c.name}')">👁️</button>

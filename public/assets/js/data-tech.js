@@ -170,7 +170,8 @@ function setupSorting(){
 function init(){
   document.querySelector("#t_generateBtn").addEventListener("click", ()=>{
     const regions = getSelected("t_regionSelect");
-    const status = getSelected("t_statusSelect");
+    let status = getSelected("t_statusSelect");
+    if (status.includes('all')) status = [];
     const from = document.querySelector("#t_fromDate").value;
     const to = document.querySelector("#t_toDate").value;
     const data = generateData(regions, status, from, to);
