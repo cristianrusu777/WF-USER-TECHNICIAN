@@ -92,6 +92,8 @@ function renderTable(data){
 }
 
 let chart;
+let currentData = [];
+let sortState = { key: null, dir: 'asc' };
 function renderChart(data){
   const ctx = document.querySelector("#t_chart").getContext("2d");
   const labels = data.map(d=>d.dateTime.split(" ")[1]);
@@ -117,6 +119,46 @@ function getSelected(id){
   return Array.from(document.querySelector(`#${id}`).selectedOptions).map(o=>o.value);
 }
 
+function compareValues(a, b, key){
+  // Decide comparison type
+  if (key === 'dateTime') {
+    return new Date(a.dateTime) - new Date(b.dateTime);
+  }
+  if (['bitrate','temp','storage','uptime'].includes(key)) {
+    return (Number(a[key]) || 0) - (Number(b[key]) || 0);
+  }
+  // string compare default
+  return String(a[key] || '').localeCompare(String(b[key] || ''));
+}
+
+function applySort() {
+  if (!sortState.key) return currentData;
+  const { key, dir } = sortState;
+  currentData.sort((a,b)=>{
+    const cmp = compareValues(a,b,key);
+    return dir === 'asc' ? cmp : -cmp;
+  });
+}
+
+function setupSorting(){
+  const headers = document.querySelectorAll('#t_dataTable thead th[data-key]');
+  headers.forEach(th => {
+    th.style.cursor = 'pointer';
+    th.addEventListener('click', () => {
+      const key = th.getAttribute('data-key');
+      if (sortState.key === key) {
+        sortState.dir = sortState.dir === 'asc' ? 'desc' : 'asc';
+      } else {
+        sortState.key = key;
+        sortState.dir = 'asc';
+      }
+      applySort();
+      renderTable(currentData);
+      renderChart(currentData);
+    });
+  });
+}
+
 function init(){
   document.querySelector("#t_generateBtn").addEventListener("click", ()=>{
     const regions = getSelected("t_regionSelect");
@@ -136,9 +178,13 @@ function init(){
       };
       data.sort((a,b)=> sev(b)-sev(a));
     }
-    renderTable(data);
-    renderChart(data);
+    currentData = data;
+    // Reset sort on new data (default by date asc already)
+    sortState = { key: null, dir: 'asc' };
+    renderTable(currentData);
+    renderChart(currentData);
   });
+  setupSorting();
 }
 
 init();

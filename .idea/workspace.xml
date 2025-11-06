@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82b24e4d-94d9-476c-98fe-dd50323e791b" name="Changes" comment="Feat: Adds technician login UI">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/data-tech.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/data-tech.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/map-tech.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/map-tech.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data-tech.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data-tech.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/map-tech.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/map-tech.html" afterDir="false" />
-    </list>
+    <list default="true" id="82b24e4d-94d9-476c-98fe-dd50323e791b" name="Changes" comment="Feat(tech map): Improves technician camera wall" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -106,7 +100,7 @@
       <workItem from="1762083576433" duration="465000" />
       <workItem from="1762354348709" duration="1439000" />
       <workItem from="1762430963116" duration="4534000" />
-      <workItem from="1762436165131" duration="772000" />
+      <workItem from="1762436165131" duration="1080000" />
     </task>
     <task id="LOCAL-00001" summary="Snapshot :-)">
       <option name="closed" value="true" />
@@ -412,14 +406,21 @@
       <option name="project" value="LOCAL" />
       <updated>1762435405935</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Feat(tech map): Improves technician camera wall">
+      <option name="closed" value="true" />
+      <created>1762437184280</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1762437184280</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Final: style improvements to the map" />
     <MESSAGE value="Final: style improvements to the footer" />
     <MESSAGE value="Final: style improvements to the scrollbar" />
     <MESSAGE value="Final: more style improvements" />
@@ -444,6 +445,7 @@
     <MESSAGE value="Merge branch 'main' of github.com:nielsclarysse/POC-WF&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
     <MESSAGE value="Add technician UI pages for map, data, and camera management with mock functionalities" />
     <MESSAGE value="Feat: Adds technician login UI" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feat: Adds technician login UI" />
+    <MESSAGE value="Feat(tech map): Improves technician camera wall" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feat(tech map): Improves technician camera wall" />
   </component>
 </project>

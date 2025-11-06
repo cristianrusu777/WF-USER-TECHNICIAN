@@ -166,7 +166,10 @@ function renderWallGrid({ cols = 3, critical = false } = {}) {
         <div class="fw-semibold">${c.name}</div>
         <span class="status-badge ${statusClass}">${c.status}</span>
       </div>
-      <video src="v.mp4" muted autoplay loop playsinline></video>
+      <div class="video-wrap">
+        <video src="v.mp4" muted autoplay loop playsinline></video>
+        <span class="overlay-badge status-badge ${statusClass}">${c.status}</span>
+      </div>
       <div class="tile-meta">
         <span class="${metricClass('bitrate', c.bitrateMbps)}">${c.bitrateMbps} Mbps</span>
         <span class="${metricClass('temp', c.temperatureC)}">${c.temperatureC}°C</span>
@@ -237,7 +240,10 @@ function renderModalWallGrid() {
           <div class="fw-semibold small">${c.name}</div>
           <span class="status-badge ${statusClass}">${c.status}</span>
         </div>
-        <video src="v.mp4" class="w-100 mb-1" muted autoplay loop playsinline></video>
+        <div class="video-wrap mb-1">
+          <video src="v.mp4" class="w-100" muted autoplay loop playsinline></video>
+          <span class="overlay-badge status-badge ${statusClass}">${c.status}</span>
+        </div>
         <div class="small mb-2" style="display:flex;gap:0.5rem;flex-wrap:wrap;">
           <span class="${metricClass('bitrate', c.bitrateMbps)}">${c.bitrateMbps} Mbps</span>
           <span class="${metricClass('temp', c.temperatureC)}">${c.temperatureC}°C</span>
