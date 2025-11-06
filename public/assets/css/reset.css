@@ -12,6 +12,7 @@
     --gray-300: hsl(0, 0%, 60%);   /* medium gray for borders/icons */
     --gray-400: hsl(0, 0%, 35%);   /* dark gray for text */
     --gray-500: hsl(0, 0%, 10%);   /* near black */
+    --gray-900: hsl(0, 0%, 05%);   /* near black */
 
     /* === Accent colors === */
     --accent-gold-200: hsl(45, 87%, 85%);

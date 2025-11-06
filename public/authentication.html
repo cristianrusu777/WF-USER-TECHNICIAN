@@ -19,7 +19,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="assets/js/map.js" type="module"></script>
+    <!-- No page-specific module needed here -->
 </head>
 <body>
 
@@ -28,11 +28,22 @@
     <div class="container vh-100 d-flex justify-content-center align-items-center">
         <div class="text-center">
             <h3 class="mb-4">Wildlife Detection System</h3>
-            <a id="authBtn" class="btn" href="./map.html">Authenticate</a>
+            <a id="authBtn" class="btn d-block mb-2" href="./map.html">Authenticate</a>
+            <a id="techBtn" class="btn d-block" href="./map-tech.html">Technician Login</a>
         </div>
     </div>
 </main>
 
+
+<script>
+  // Preserve original layout. Only set role and allow normal navigation via hrefs.
+  document.querySelector('#authBtn').addEventListener('click', ()=>{
+    localStorage.setItem('role','user');
+  });
+  document.querySelector('#techBtn').addEventListener('click', ()=>{
+    localStorage.setItem('role','technician');
+  });
+</script>
 
 </body>
 </html>

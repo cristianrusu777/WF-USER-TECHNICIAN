@@ -12,10 +12,10 @@
     background-color: var(--green-300);
     border: none;
     border-radius: var(--radius);
+}
 
-    &:hover {
-        background-color: var(--green-400);
-    }
+.vbutton:hover {
+    background-color: var(--green-400);
 }
 
 /* === Header (title, nav & logout) & Main & Footer (copyright message) === */
@@ -395,15 +395,6 @@ tbody {
         margin-bottom: 1rem;
         text-align: center;
     }
-
-    & div span {
-        position: absolute;
-        top: 0.5rem;
-        right: 1rem;
-        color: firebrick;
-        font-weight: bolder;
-        font-size: 1.2rem;
-    }
 }
 
 .v {
@@ -438,3 +429,80 @@ tbody {
     font-weight: bolder;
     font-size: 1.2rem;
 }
+
+/* Narrow the absolute position styling only to video preview overlays */
+.v div.position-relative span,
+.l div.position-relative span {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    color: firebrick;
+    font-weight: bolder;
+    font-size: 1.2rem;
+}
+
+/* Ensure spans/codes in the technician side panel are not absolutely positioned */
+.tech-panel span,
+.tech-panel code {
+    position: static !important;
+}
+
+/* Technician UI: status badges */
+.status-badge {
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+.status-online { background: #d1fae5; color: #065f46; }
+.status-degraded { background: #fef3c7; color: #92400e; }
+.status-offline { background: #fee2e2; color: #991b1b; }
+
+/* Technician UI: inline action buttons */
+.action-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+/* Technician action buttons (restart/update/diagnose) */
+.btn-tech {
+    color: var(--gray-100);
+    background-color: var(--green-300);
+    border: none;
+    border-radius: var(--radius);
+}
+.btn-tech:hover {
+    background-color: var(--green-400);
+}
+
+/* Technician UI: metric severity styles */
+.metric { font-weight: 600; padding: 0.05rem 0.35rem; border-radius: 0.35rem; font-size: 0.85rem; }
+.metric-ok { background: #e6fffa; color: #065f46; }
+.metric-warn { background: #fef3c7; color: #92400e; }
+.metric-crit { background: #fee2e2; color: #991b1b; }
+
+/* Explicit styles for small action buttons (view/bookmark) */
+.vbutton {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.9rem;
+    background-color: var(--green-200);
+    color: var(--gray-900);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+}
+
+.vbutton.bookmarked { background-color: var(--accent-gold-300); color: var(--gray-900); }
+.action-row .vbutton.bookmarked:hover { background-color: var(--accent-gold-400); color: var(--gray-900); }
+
+/* Increase specificity so hover applies inside list groups and Leaflet popups */
+.action-row .vbutton { background-color: var(--green-200); color: var(--gray-900); }
+.action-row .vbutton:hover { background-color: var(--accent-gold-300); color: var(--gray-900); }
+.action-row .vbutton.bookmarked { background-color: var(--accent-gold-300); color: var(--gray-900); }
+.action-row .vbutton.bookmarked:hover { background-color: var(--accent-gold-400); color: var(--gray-900); }
+.leaflet-popup-content .vbutton { background-color: var(--green-200); color: var(--gray-900); }
+.leaflet-popup-content .vbutton:hover { background-color: var(--accent-gold-300); color: var(--gray-900); }
+.leaflet-popup-content .vbutton.bookmarked { background-color: var(--accent-gold-300); color: var(--gray-900); }
+.leaflet-popup-content .vbutton.bookmarked:hover { background-color: var(--accent-gold-400); color: var(--gray-900); }
