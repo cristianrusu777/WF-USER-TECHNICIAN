@@ -5,6 +5,11 @@ import { defaultIcon, goldIcon } from "./config.js";
 if (localStorage.getItem('role') !== 'technician') {
   window.location = './authentication.html';
 }
+
+function regionClassName(region){
+  const slug = String(region||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+  return `region-${slug || 'unknown'}`;
+}
 function loadDeletedCams(){
   try { return new Set(JSON.parse(localStorage.getItem('deletedCameras')||'[]')); } catch { return new Set(); }
 }
@@ -135,6 +140,15 @@ window.toggleBookmark = function(name) {
   localStorage.setItem('bookmarkedCameras', JSON.stringify([...bookmarked]));
   c.marker?.setIcon(bookmarked.has(c.name) ? goldIcon : defaultIcon);
   renderList();
+  // Also update wall views if present
+  if (document.getElementById('wallGrid')) {
+    const cols = Number(document.querySelector('#wallCols')?.value || 3);
+    const critical = !!document.querySelector('#wallCriticalFirst')?.checked;
+    try { renderWallGrid({ cols, critical }); } catch {}
+  }
+  if (document.getElementById('mwGrid')) {
+    try { renderModalWallGrid(); } catch {}
+  }
 };
 
 window.view = function(name) {
@@ -183,12 +197,15 @@ function renderAdminTable(){
   // Merge all cameras for listing
   const customs = loadCustomCams();
   const deleted = loadDeletedCams();
+  const q = (document.getElementById('adminCamSearch')?.value || '').toLowerCase();
   let all = [
     ...DataFetcher.cameras.map(c=>({ name:c.name, lat:c.lat, lng:c.lng, custom:false })),
     ...customs.map(c=>({ name:c.name, lat:Number(c.lat), lng:Number(c.lng), custom:true, createdAt: Number(c.createdAt||0) }))
   ];
   // Exclude deleted
   all = all.filter(x=> !deleted.has(x.name));
+  // Apply search
+  if (q) all = all.filter(x => x.name.toLowerCase().includes(q));
   // Sort according to adminSort or default (custom-first)
   if (adminSort.key) {
     const { key, dir } = adminSort;
@@ -335,18 +352,20 @@ function openWall() {
   const searchInput = document.querySelector('#wallSearch');
   const statusSel = document.querySelector('#wallStatus');
   const regionSel = document.querySelector('#wallRegion');
+  const bookOnly = document.querySelector('#wallBookOnly');
   const grid = document.querySelector('#wallGrid');
 
   overlay.style.display = 'block';
   renderWallGrid({ cols: Number(colsInput.value), critical: !!critToggle.checked });
-  setupTicker(!!alertsToggle.checked);
+  setupTicker(!!alertsToggle?.checked);
 
   colsInput.addEventListener('input', () => renderWallGrid({ cols: Number(colsInput.value), critical: !!critToggle.checked }));
   critToggle.addEventListener('change', () => renderWallGrid({ cols: Number(colsInput.value), critical: !!critToggle.checked }));
-  alertsToggle.addEventListener('change', () => setupTicker(!!alertsToggle.checked));
+  alertsToggle?.addEventListener('change', () => setupTicker(!!alertsToggle?.checked));
   searchInput?.addEventListener('input', () => renderWallGrid({ cols: Number(colsInput.value), critical: !!critToggle.checked }));
   statusSel?.addEventListener('change', () => renderWallGrid({ cols: Number(colsInput.value), critical: !!critToggle.checked }));
   regionSel?.addEventListener('change', () => renderWallGrid({ cols: Number(colsInput.value), critical: !!critToggle.checked }));
+  bookOnly?.addEventListener('change', () => renderWallGrid({ cols: Number(colsInput.value), critical: !!critToggle.checked }));
 }
 
 function closeWall() {
@@ -367,19 +386,21 @@ function renderWallGrid({ cols = 3, critical = false } = {}) {
   const q = (document.querySelector('#wallSearch')?.value || '').toLowerCase();
   const st = document.querySelector('#wallStatus')?.value || '';
   const rg = document.querySelector('#wallRegion')?.value || '';
+  const onlyBook = !!document.querySelector('#wallBookOnly')?.checked;
   const deleted = loadDeletedCams();
   cams = cams.filter(c => {
     if (deleted.has(c.name)) return false;
     if (q && !c.name.toLowerCase().includes(q)) return false;
     if (st && getDisplayStatus(c) !== st) return false;
     if (rg && c.region !== rg) return false;
+    if (onlyBook && !bookmarked.has(c.name)) return false;
     return true;
   });
 
   grid.innerHTML = '';
   cams.forEach(c => {
     const tile = document.createElement('div');
-    tile.className = `wall-tile ${wallSeverity(c) >= 4 ? 'crit' : ''}`;
+    tile.className = `wall-tile ${regionClassName(c.region)} ${wallSeverity(c) >= 4 ? 'crit' : ''}`;
     const ds = getDisplayStatus(c);
     const statusClass = ds === 'online' ? 'status-online' : (ds === 'degraded' ? 'status-degraded' : 'status-offline');
     tile.innerHTML = `
@@ -456,6 +477,8 @@ function bindUI(){
         alert(res.msg || 'Unable to add camera');
       }
     });
+    // Admin search binding
+    document.getElementById('adminCamSearch')?.addEventListener('input', renderAdminTable);
   }
 }
 
@@ -473,11 +496,13 @@ function openWallModal() {
   const search = document.getElementById('mwSearch');
   const status = document.getElementById('mwStatus');
   const region = document.getElementById('mwRegion');
+  const book = document.getElementById('mwBookmarkedOnly');
   cols?.addEventListener('input', renderModalWallGrid);
   crit?.addEventListener('change', renderModalWallGrid);
   search?.addEventListener('input', renderModalWallGrid);
   status?.addEventListener('change', renderModalWallGrid);
   region?.addEventListener('change', renderModalWallGrid);
+  book?.addEventListener('change', renderModalWallGrid);
 
   // Clean up any lingering overlay/backdrop when modal closes
   modalEl.addEventListener('hidden.bs.modal', () => {
@@ -504,12 +529,14 @@ function renderModalWallGrid() {
   const q = (document.getElementById('mwSearch')?.value || '').toLowerCase();
   const st = document.getElementById('mwStatus')?.value || '';
   const rg = document.getElementById('mwRegion')?.value || '';
+  const onlyBook = !!document.getElementById('mwBookmarkedOnly')?.checked;
   const deleted = loadDeletedCams();
   cams = cams.filter(c => {
     if (deleted.has(c.name)) return false;
     if (q && !c.name.toLowerCase().includes(q)) return false;
     if (st && getDisplayStatus(c) !== st) return false;
     if (rg && c.region !== rg) return false;
+    if (onlyBook && !bookmarked.has(c.name)) return false;
     return true;
   });
   grid.innerHTML = '';
@@ -517,9 +544,9 @@ function renderModalWallGrid() {
     const ds = getDisplayStatus(c);
     const statusClass = ds === 'online' ? 'status-online' : (ds === 'degraded' ? 'status-degraded' : 'status-offline');
     const div = document.createElement('div');
-    div.className = colMap[cols] || 'col-4';
+    div.className = (colMap[cols] || 'col-4') + ' ' + regionClassName(c.region);
     div.innerHTML = `
-      <div class="border rounded p-2 h-100 d-flex flex-column">
+      <div class="wall-tile h-100 d-flex flex-column">
         <div class="d-flex justify-content-between align-items-center mb-1">
           <div class="fw-semibold small">${c.name}</div>
         </div>
@@ -527,7 +554,7 @@ function renderModalWallGrid() {
           <video src="v.mp4" class="w-100" muted autoplay loop playsinline></video>
           <span class="overlay-badge status-badge ${statusClass}">${ds}</span>
         </div>
-        <div class="small mb-2" style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+        <div class="small mb-2 tile-meta" style="display:flex;gap:0.5rem;flex-wrap:wrap;">
           <span class="${metricClass('bitrate', c.bitrateMbps)}">${c.bitrateMbps} Mbps</span>
           <span class="${metricClass('temp', c.temperatureC)}">${c.temperatureC}°C</span>
           <span class="${metricClass('storage', c.storageUsed)}">${c.storageUsed}%</span>

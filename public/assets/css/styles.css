@@ -8,7 +8,7 @@
   font-weight: 800;
   line-height: 1;
   background: #f6c453;        /* gold */
-  color: #1f2937;             /* slate-800 */
+  color: #1f2937 !important;             /* slate-800 */
   border: 1px solid #f4b942;  /* darker gold border */
   box-shadow: 0 1px 0 rgba(0,0,0,0.06) inset;
 }
@@ -29,18 +29,49 @@
 .kv { display: inline-flex; align-items: center; gap: 0.05rem; padding: 0.1rem 0.6rem; background: #f6f8fa; border-radius: 999px; border: 1px solid #d7dde5; color: #334155; font-size: 0.82rem; }
 .kv .kv-label { font-weight: 800; color: #0f172a; text-transform: uppercase; font-size: 0.72rem; letter-spacing: .02em; }
 /* Compact layout: smaller pills and two per row */
-.kv-grid { display: flex; flex-wrap: wrap; gap: 0.2rem; }
 .kv-compact { padding: 0.03rem 0.4rem; font-size: 0.7rem; }
 .kv-compact .kv-label { font-size: 0.64rem; }
 .kv-grid .kv-compact { flex: 0 1 calc(50% - 0.25rem); }
 
 /* Tech map list layout: emphasize details, minimize actions */
-.tech-item-content { flex: 0 1 calc(100% - 5rem); padding-right: 0.75rem; }
-.tech-actions { flex: 0 0 5rem; width: 6rem; margin-left: 0.5rem; padding-left: 0.75rem; gap: 0.4rem; border-left: 1px solid #e5e7eb; }
-.wall-title { font-weight: 700; }
-.wall-controls { display: inline-flex; gap: 0.75rem; align-items: center; }
-.wall-controls label { display: inline-flex; align-items: center; gap: 0.35rem; margin: 0; }
-.wall-controls .form-range { width: 180px; }
+.tech-item-content { flex: 0 1 calc(100% - 5rem); padding-right: 0.5rem; }
+
+/* Camera Wall layout */
+.wall-grid { display: grid; grid-auto-rows: 1fr; gap: 0.5rem; }
+.wall-tile { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); padding: 0.5rem; display: flex; flex-direction: column; gap: 0.4rem; }
+.wall-tile .tile-head { display: flex; justify-content: space-between; align-items: center; }
+.wall-tile .tile-meta { font-size: 0.85rem; color: var(--gray-600); display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.wall-tile .action-row { margin-top: auto; }
+/* Stronger decorative background only inside wall tiles */
+.wall-tile .video-wrap {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.2)),
+      repeating-linear-gradient(45deg, var(--green-100), var(--green-100) 12px, #e9f7ef 12px, #e9f7ef 24px);
+    border: 1px solid #e5e7eb;
+    min-height: 9rem;
+}
+
+/* Region tints (apply when an ancestor has a region-* class) */
+.region-north-america .wall-tile { box-shadow: 0 0 0 2px rgba(59,130,246,0.15) inset; }
+.region-north-america .wall-tile .video-wrap { background: linear-gradient(180deg, rgba(59,130,246,0.10), rgba(59,130,246,0.06)), repeating-linear-gradient(45deg, #eef2ff, #eef2ff 12px, #e9f7ef 12px, #e9f7ef 24px); border-color: rgba(59,130,246,0.25); }
+
+.region-south-america .wall-tile { box-shadow: 0 0 0 2px rgba(16,185,129,0.18) inset; }
+.region-south-america .wall-tile .video-wrap { background: linear-gradient(180deg, rgba(16,185,129,0.12), rgba(16,185,129,0.06)), repeating-linear-gradient(45deg, #ecfdf5, #ecfdf5 12px, #e9f7ef 12px, #e9f7ef 24px); border-color: rgba(16,185,129,0.3); }
+
+.region-europe .wall-tile { box-shadow: 0 0 0 2px rgba(234,179,8,0.22) inset; }
+.region-europe .wall-tile .video-wrap { background: linear-gradient(180deg, rgba(234,179,8,0.14), rgba(234,179,8,0.08)), repeating-linear-gradient(45deg, #fffbeb, #fffbeb 12px, #e9f7ef 12px, #e9f7ef 24px); border-color: rgba(234,179,8,0.35); }
+
+.region-africa .wall-tile { box-shadow: 0 0 0 2px rgba(244,114,182,0.18) inset; }
+.region-africa .wall-tile .video-wrap { background: linear-gradient(180deg, rgba(244,114,182,0.12), rgba(244,114,182,0.06)), repeating-linear-gradient(45deg, #fdf2f8, #fdf2f8 12px, #e9f7ef 12px, #e9f7ef 24px); border-color: rgba(244,114,182,0.3); }
+
+.region-asia .wall-tile { box-shadow: 0 0 0 2px rgba(249,115,22,0.18) inset; }
+.region-asia .wall-tile .video-wrap { background: linear-gradient(180deg, rgba(249,115,22,0.12), rgba(249,115,22,0.06)), repeating-linear-gradient(45deg, #fff7ed, #fff7ed 12px, #e9f7ef 12px, #e9f7ef 24px); border-color: rgba(249,115,22,0.3); }
+
+.region-oceania .wall-tile { box-shadow: 0 0 0 2px rgba(99,102,241,0.18) inset; }
+.region-oceania .wall-tile .video-wrap { background: linear-gradient(180deg, rgba(99,102,241,0.12), rgba(99,102,241,0.06)), repeating-linear-gradient(45deg, #eef2ff, #eef2ff 12px, #e9f7ef 12px, #e9f7ef 24px); border-color: rgba(99,102,241,0.3); }
+
+.region-antarctica-misc .wall-tile { box-shadow: 0 0 0 2px rgba(148,163,184,0.22) inset; }
+.region-antarctica-misc .wall-tile .video-wrap { background: linear-gradient(180deg, rgba(148,163,184,0.14), rgba(148,163,184,0.08)), repeating-linear-gradient(45deg, #f1f5f9, #f1f5f9 12px, #e9f7ef 12px, #e9f7ef 24px); border-color: rgba(148,163,184,0.35); }
 .modal-header .wall-title { margin-right: 1rem; }
 .modal-header .wall-controls { margin-left: auto; }
 /* === Authentication, ... Button === */
