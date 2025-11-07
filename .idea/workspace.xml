@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82b24e4d-94d9-476c-98fe-dd50323e791b" name="Changes" comment="Adds unassigned device markers">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="82b24e4d-94d9-476c-98fe-dd50323e791b" name="Changes" comment="Enhances device and camera management with unassigned device handling, improves modal interactions, and refines UI behavior.">
       <change beforePath="$PROJECT_DIR$/public/assets/js/map-tech.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/map-tech.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/map-tech.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/map-tech.html" afterDir="false" />
     </list>
@@ -114,15 +113,7 @@
       <workItem from="1762430963116" duration="4534000" />
       <workItem from="1762436165131" duration="5840000" />
       <workItem from="1762445082707" duration="12012000" />
-      <workItem from="1762495827218" duration="2939000" />
-    </task>
-    <task id="LOCAL-00004" summary="Snapshot :-)">
-      <option name="closed" value="true" />
-      <created>1761200941781</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1761200941781</updated>
+      <workItem from="1762495827218" duration="3333000" />
     </task>
     <task id="LOCAL-00005" summary="Final: add css template and authentication button">
       <option name="closed" value="true" />
@@ -508,7 +499,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762498097592</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Enhances device and camera management with unassigned device handling, improves modal interactions, and refines UI behavior.">
+      <option name="closed" value="true" />
+      <created>1762499562651</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1762499562651</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -526,7 +525,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Joke: adds green" />
     <MESSAGE value="Final: reverts joke :-)" />
     <MESSAGE value="Final: scroll improvements" />
     <MESSAGE value="Final: small adjustment" />
@@ -551,6 +549,7 @@
     <MESSAGE value="Enhances camera management" />
     <MESSAGE value="Implements new UI styles" />
     <MESSAGE value="Adds unassigned device markers" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adds unassigned device markers" />
+    <MESSAGE value="Enhances device and camera management with unassigned device handling, improves modal interactions, and refines UI behavior." />
+    <option name="LAST_COMMIT_MESSAGE" value="Enhances device and camera management with unassigned device handling, improves modal interactions, and refines UI behavior." />
   </component>
 </project>

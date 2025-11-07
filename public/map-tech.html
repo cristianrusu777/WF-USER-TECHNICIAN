@@ -43,9 +43,14 @@
             <input id="admLng" class="form-control" type="number" step="0.000001" placeholder="Auto-filled" readonly>
           </div>
           <div class="col-md-2 d-flex align-items-end">
-            <button id="admAddBtn" class="btn-tech w-100" type="submit">Add</button>
+            <button id="admAddBtn" class="btn-tech w-100" type="submit" disabled>Add</button>
           </div>
         </form>
+        <hr/>
+        <div class="mb-3">
+          <h6 class="mb-2">Unassigned devices</h6>
+          <div id="unassignedList" class="list-group small"></div>
+        </div>
         <hr/>
         <div class="d-flex justify-content-end mb-2">
           <input id="adminCamSearch" class="form-control form-control-sm" placeholder="Search cameras" style="max-width: 16rem;">

@@ -349,6 +349,8 @@ function renderAdminTable(){
         addDevice({ lat: cam.lat, lng: cam.lng });
         try { cam.marker?.remove(); } catch {}
         refreshDeviceMarkers();
+        // Update unassigned list if modal is open
+        try { renderUnassignedList(); } catch {}
       }
       renderAdminTable();
       renderList();
@@ -444,16 +446,49 @@ function refreshDeviceMarkers(){
   try { (window.deviceMarkers||[]).forEach(m=>m.remove()); } catch {}
   window.deviceMarkers = [];
   (loadDevices()||[]).forEach(createDeviceMarker);
+  // Keep the modal list in sync if it's open
+  try { renderUnassignedList(); } catch {}
+}
+
+function setPendingDevice(lat, lng){
+  window.__pendingDevice = { lat, lng };
+  const latEl = document.querySelector('#admLat');
+  const lngEl = document.querySelector('#admLng');
+  if (latEl) latEl.value = Number(lat).toFixed(6);
+  if (lngEl) lngEl.value = Number(lng).toFixed(6);
+  updateAddBtnState();
+}
+
+function renderUnassignedList(){
+  const wrap = document.querySelector('#unassignedList');
+  if (!wrap) return;
+  const devs = loadDevices()||[];
+  if (devs.length === 0){ wrap.innerHTML = '<div class="list-group-item text-muted">No unassigned devices</div>'; return; }
+  wrap.innerHTML = '';
+  devs.forEach((d, idx)=>{
+    const el = document.createElement('button');
+    el.type = 'button';
+    el.className = 'list-group-item list-group-item-action d-flex justify-content-between align-items-center';
+    el.innerHTML = `<span>#${idx+1} · ${d.lat.toFixed?.(6) ?? d.lat}, ${d.lng.toFixed?.(6) ?? d.lng}</span><span class="badge bg-secondary">Select</span>`;
+    el.addEventListener('click', ()=>{
+      setPendingDevice(d.lat, d.lng);
+    });
+    wrap.appendChild(el);
+  });
+}
+
+function updateAddBtnState(){
+  const btn = document.querySelector('#admAddBtn');
+  if (!btn) return;
+  const hasDev = !!window.__pendingDevice;
+  // Enable Add as soon as a device is selected; name is still validated on submit
+  btn.disabled = !hasDev;
 }
 
 // Open Manage Cameras modal with coords prefilled
 window.assignFromDevice = function(lat, lng){
   // Always prefill coords (readonly), set pending, and open the modal; user clicks Add to complete
-  const latEl = document.querySelector('#admLat');
-  const lngEl = document.querySelector('#admLng');
-  if (latEl) latEl.value = Number(lat).toFixed(6);
-  if (lngEl) lngEl.value = Number(lng).toFixed(6);
-  window.__pendingDevice = { lat, lng };
+  setPendingDevice(lat, lng);
   const modalEl = document.querySelector('#adminCamsModal');
   if (modalEl){ try { bootstrap.Modal.getOrCreateInstance(modalEl).show(); } catch {} }
   setTimeout(()=> document.querySelector('#admName')?.focus(), 100);
