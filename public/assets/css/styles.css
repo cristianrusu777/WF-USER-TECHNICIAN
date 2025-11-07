@@ -379,6 +379,14 @@ footer {
     width: 100%;
 }
 
+/* Tech Data table header: remove rounded corners on first/last cells */
+#t_dataTable thead { border-radius: 0 !important; }
+#t_dataTable thead th { border-radius: 0 !important; }
+#t_dataTable thead th:first-child { border-top-left-radius: 0 !important; }
+#t_dataTable thead th:last-child { border-top-right-radius: 0 !important; }
+/* Center the Data/Graphs tabs */
+.dcol #dataTabs { justify-content: center; }
+
 tr {
     display: flex;
 }
@@ -539,6 +547,7 @@ tbody {
   color: var(--gray-100);
   background-color: var(--green-300);
   border: none;
+  padding: 0rem 0.5rem;
   border-radius: var(--radius);
 }
 .btn-tech:hover { background-color: var(--green-400); }

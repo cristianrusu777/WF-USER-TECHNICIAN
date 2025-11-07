@@ -313,6 +313,8 @@ function init(){
     renderChartForCamera(currentData, cam);
   });
   setupSorting();
+  // Auto-generate on load with default selections (All regions/status/cameras, 7-day range by default)
+  try { document.querySelector('#t_generateBtn')?.click(); } catch {}
 }
 
 init();
