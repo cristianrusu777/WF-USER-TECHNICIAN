@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82b24e4d-94d9-476c-98fe-dd50323e791b" name="Changes" comment="Simplify region and camera selection: add &quot;All&quot; options, update dropdown behavior, and streamline chart rendering logic." />
+    <list default="true" id="82b24e4d-94d9-476c-98fe-dd50323e791b" name="Changes" comment="Add status-based sorting and clarify camera selection behavior" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -111,15 +111,7 @@
       <workItem from="1762436165131" duration="5840000" />
       <workItem from="1762445082707" duration="12012000" />
       <workItem from="1762495827218" duration="3333000" />
-      <workItem from="1762502051668" duration="6512000" />
-    </task>
-    <task id="LOCAL-00012" summary="Final: style improvements to the scrollbar">
-      <option name="closed" value="true" />
-      <created>1761214942223</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1761214942223</updated>
+      <workItem from="1762502051668" duration="6832000" />
     </task>
     <task id="LOCAL-00013" summary="Final: more style improvements">
       <option name="closed" value="true" />
@@ -505,7 +497,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762508501262</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="Add status-based sorting and clarify camera selection behavior">
+      <option name="closed" value="true" />
+      <created>1762508810284</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1762508810284</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -523,7 +523,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Merge branch 'main' of github.com:nielsclarysse/POC-WF&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
     <MESSAGE value="Add technician UI pages for map, data, and camera management with mock functionalities" />
     <MESSAGE value="Feat: Adds technician login UI" />
     <MESSAGE value="Feat(tech map): Improves technician camera wall" />
@@ -548,6 +547,7 @@
     <MESSAGE value="Improves camera selection workflow: refines rename input handling, enhances clickable elements, and adjusts modal interactions." />
     <MESSAGE value="Adds enhanced camera filtering options, improves UI refresh mechanisms, and updates chart rendering for temperature and bitrate." />
     <MESSAGE value="Simplify region and camera selection: add &quot;All&quot; options, update dropdown behavior, and streamline chart rendering logic." />
-    <option name="LAST_COMMIT_MESSAGE" value="Simplify region and camera selection: add &quot;All&quot; options, update dropdown behavior, and streamline chart rendering logic." />
+    <MESSAGE value="Add status-based sorting and clarify camera selection behavior" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add status-based sorting and clarify camera selection behavior" />
   </component>
 </project>

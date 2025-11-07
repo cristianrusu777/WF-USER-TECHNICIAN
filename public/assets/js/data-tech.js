@@ -98,7 +98,7 @@ function renderTable(data){
       <td><span class="${metricClass('storage', r.storage)}">${r.storage}</span></td>
       <td><span class="${metricClass('uptime', r.uptime)}">${r.uptime}</span></td>
       <td><code style="font-family: monospace; background:#f6f8fa; padding:0.1rem 0.25rem; border-radius:4px;">${r.ip}</code></td>
-      <td><button class="toStyleTheButtonOnTheDataPage" onclick="(function(name){localStorage.setItem('rname', name); localStorage.setItem('lstatus','Replay ●'); window.location='./camera-tech.html';})('${r.camera}')">View</button></td>`;
+      <td><button class="btn-tech btn-sm" onclick="(function(name){localStorage.setItem('rname', name); localStorage.setItem('lstatus','Replay ●'); window.location='./camera-tech.html';})('${r.camera}')">View</button></td>`;
     body.appendChild(tr);
   });
 }

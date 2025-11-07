@@ -323,6 +323,24 @@ footer {
     }
 }
 
+/* Global themed overrides for Bootstrap variants used in tech pages */
+/* Ensure table dark header uses brand color everywhere */
+.table thead.table-dark th,
+.table-dark th {
+    color: #fff !important;
+    background-color: var(--green-300) !important;
+}
+
+/* Theme the info alert to our green palette */
+.alert-info {
+    color: var(--gray-700) !important;
+    background-color: var(--green-100) !important;
+    border-color: var(--green-200) !important;
+}
+
+/* Muted text aligned to theme gray scale */
+.text-muted { color: var(--gray-600) !important; }
+
 .tab-content, #dataTab, table, tr {
     width: 100%;
 }
