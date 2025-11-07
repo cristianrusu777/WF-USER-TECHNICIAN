@@ -41,6 +41,11 @@ function renameCamera(oldName, newName){
   saveNameOverrides(ov);
   if (!cam) return { ok:false, msg:'Camera not found' };
   cam.name = newName;
+  // If the newName was previously soft-deleted, un-delete it to make it visible again
+  try {
+    const del = loadDeletedCams();
+    if (del.has(newName)) { del.delete(newName); saveDeletedCams(del); }
+  } catch {}
   // move status overrides
   const so = loadStatusOverrides();
   if (Object.prototype.hasOwnProperty.call(so, oldName)){
@@ -52,6 +57,14 @@ function renameCamera(oldName, newName){
   if (bookmarked.has(oldName)) { bookmarked.delete(oldName); bookmarked.add(newName); localStorage.setItem('bookmarkedCameras', JSON.stringify([...bookmarked])); }
   // update marker popup later when opened; icon remains the same
   renderList();
+  // If the current search filter hides this camera, clear it so the item shows up
+  try {
+    const s = document.querySelector('#searchTech');
+    if (s && s.value) {
+      const q = s.value.toLowerCase();
+      if (!newName.toLowerCase().includes(q)) { s.value = ''; renderList(); }
+    }
+  } catch {}
   return { ok:true };
 }
 
@@ -254,6 +267,11 @@ function renameCustomCam(oldName, newName){
   // update runtime camera
   const cam = techCameras.find(c=>c.name===oldName && c.custom);
   if (cam){ cam.name = newName; }
+  // Clear any soft-delete under the new name
+  try {
+    const del = loadDeletedCams();
+    if (del.has(newName)) { del.delete(newName); saveDeletedCams(del); }
+  } catch {}
   // move overrides
   const ov = loadStatusOverrides();
   if (Object.prototype.hasOwnProperty.call(ov, oldName)){
@@ -265,6 +283,14 @@ function renameCustomCam(oldName, newName){
   if (bookmarked.has(oldName)) { bookmarked.delete(oldName); bookmarked.add(newName); localStorage.setItem('bookmarkedCameras', JSON.stringify([...bookmarked])); }
   dedupeTechCameras();
   renderList();
+  // If the current search filter hides this camera, clear it so the item shows up
+  try {
+    const s = document.querySelector('#searchTech');
+    if (s && s.value) {
+      const q = s.value.toLowerCase();
+      if (!newName.toLowerCase().includes(q)) { s.value = ''; renderList(); }
+    }
+  } catch {}
   return { ok:true };
 }
 
