@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82b24e4d-94d9-476c-98fe-dd50323e791b" name="Changes" comment="Fixes unclosed `div` in data-tech.html and updates column width and text overflow handling in workspace configuration.">
+    <list default="true" id="82b24e4d-94d9-476c-98fe-dd50323e791b" name="Changes" comment="Adds technician device installation page with map integration and device management functionality.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/camera-tech.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/camera-tech.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data-tech.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data-tech.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/map-tech.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/map-tech.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/install-tech.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/install-tech.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/map-tech.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/map-tech.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/install-tech.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/install-tech.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,15 +118,7 @@
       <workItem from="1762445082707" duration="12012000" />
       <workItem from="1762495827218" duration="3333000" />
       <workItem from="1762502051668" duration="11197000" />
-      <workItem from="1762539984671" duration="995000" />
-    </task>
-    <task id="LOCAL-00018" summary="Final: working subscription page (improved)">
-      <option name="closed" value="true" />
-      <created>1761568167311</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1761568167311</updated>
+      <workItem from="1762539984671" duration="1862000" />
     </task>
     <task id="LOCAL-00019" summary="Final: partial implementation of the data tab and adds some styling like backdrop filter">
       <option name="closed" value="true" />
@@ -511,7 +504,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762512768647</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="Adds technician device installation page with map integration and device management functionality.">
+      <option name="closed" value="true" />
+      <created>1762541205647</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1762541205647</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -529,7 +530,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Adds sortable columns and enhance video UI with overlay badges" />
     <MESSAGE value="Improves modal behavior, UI consistency, and grid logic for camera wall" />
     <MESSAGE value="Adds camera management modal" />
     <MESSAGE value="Enhances camera management with additional status controls, improves UI labels, and refines custom camera logic." />
@@ -554,6 +554,7 @@
     <MESSAGE value="Improve data table UI: remove header corner rounding, center tabs, refine button padding, and auto-generate default selections on load" />
     <MESSAGE value="adjusts column widths for better alignment and improve text overflow handling." />
     <MESSAGE value="Fixes unclosed `div` in data-tech.html and updates column width and text overflow handling in workspace configuration." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixes unclosed `div` in data-tech.html and updates column width and text overflow handling in workspace configuration." />
+    <MESSAGE value="Adds technician device installation page with map integration and device management functionality." />
+    <option name="LAST_COMMIT_MESSAGE" value="Adds technician device installation page with map integration and device management functionality." />
   </component>
 </project>

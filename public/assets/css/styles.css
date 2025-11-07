@@ -627,6 +627,25 @@ tbody {
   font-size: 0.9rem;
   border-radius: var(--radius);
 }
+
+/* Install Tech: fixed row layout for device list */
+.install-list .list-group-item {
+  display: grid;
+  grid-template-columns: 1fr 10rem; /* info | actions */
+  align-items: center;
+}
+.install-list .list-group-item > span:first-child {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.install-list .list-group-item > span:last-child {
+  display: inline-flex;
+  gap: 0.25rem;
+  justify-content: flex-end;
+}
+.install-list .btn-xs { min-width: 4.5rem; text-align: center; }
 .status-select-tech {
     min-width: 9rem;
 }

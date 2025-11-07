@@ -617,6 +617,20 @@ function setPendingDevice(lat, lng){
   if (latEl) latEl.value = Number(lat).toFixed(6);
   if (lngEl) lngEl.value = Number(lng).toFixed(6);
   updateAddBtnState();
+  // Contextual guidance in Manage Cameras modal
+  try {
+    const info = document.querySelector('#adminCamsModal .alert-info');
+    if (info){
+      info.innerHTML = `Device selected at <strong>${Number(lat).toFixed(6)}, ${Number(lng).toFixed(6)}</strong>. Enter a camera name, then click <strong>Add</strong> to assign it here.`;
+    }
+    const nameEl = document.querySelector('#admName');
+    if (nameEl){
+      nameEl.classList.add('rename-target');
+      // If modal is open, focus; otherwise next show will focus
+      try { nameEl.focus(); nameEl.select?.(); } catch {}
+      nameEl.addEventListener('blur', ()=> nameEl.classList.remove('rename-target'), { once:true });
+    }
+  } catch {}
 }
 
 function renderUnassignedList(){
@@ -853,7 +867,21 @@ function bindUI(){
           renderAdminTable();
           renderUnassignedList();
           adminModal.show();
-          setTimeout(()=> document.querySelector('#admName')?.focus(), 100);
+          setTimeout(()=> {
+            // Focus and highlight the name input for quick action
+            const nameEl = document.querySelector('#admName');
+            if (nameEl){
+              nameEl.classList.add('rename-target');
+              nameEl.focus();
+              nameEl.select?.();
+              nameEl.addEventListener('blur', ()=> nameEl.classList.remove('rename-target'), { once:true });
+            }
+            // Update helper information with specific guidance
+            const info = document.querySelector('#adminCamsModal .alert-info');
+            if (info){
+              info.innerHTML = `Device selected at <strong>${lat.toFixed(6)}, ${lng.toFixed(6)}</strong>. Enter a camera name, then click <strong>Add</strong> to assign it here.`;
+            }
+          }, 100);
         }
       }
     } catch {}

@@ -4,6 +4,8 @@ if (localStorage.getItem('role') !== 'technician') {
   window.location = './authentication.html';
 }
 
+import { greyIcon } from './config.js';
+
 function loadDevices(){
   try { return JSON.parse(localStorage.getItem('unassignedDevices')||'[]'); } catch { return []; }
 }
@@ -31,6 +33,7 @@ function regionFromLatLng(lat, lng) {
 }
 
 let map, pickMarker;
+let deviceMarkers = [];
 
 function enableAddButton(){
   const lat = Number(document.getElementById('lat').value);
@@ -48,6 +51,7 @@ function renderList(){
   listEl.innerHTML = '';
   if (list.length === 0){
     listEl.innerHTML = '<div class="list-group-item text-muted">No unassigned devices</div>';
+    refreshDeviceMarkers();
     return;
   }
   list.forEach((d, idx)=>{
@@ -80,6 +84,7 @@ function renderList(){
     });
     listEl.appendChild(item);
   });
+  refreshDeviceMarkers();
 }
 
 function initMap(){
@@ -96,6 +101,27 @@ function initMap(){
       pickMarker.setLatLng([lat, lng]);
     }
   });
+}
+
+function createDeviceMarker(dev){
+  const m = L.marker([dev.lat, dev.lng], { icon: greyIcon })
+    .addTo(map)
+    .bindPopup(() => `
+      <div style="min-width: 220px">
+        <strong>Unassigned device</strong><br>
+        <small>${regionFromLatLng(dev.lat, dev.lng)}</small>
+        <div class="action-row" style="margin-top:0.5rem;">
+          <button class="btn-tech" onclick="(function(lat,lng){try{localStorage.setItem('pendingAssignDevice', JSON.stringify({lat,lng}));}catch(e){} window.location='./map-tech.html';})(${dev.lat}, ${dev.lng})">Assign camera here</button>
+        </div>
+      </div>
+    `);
+  deviceMarkers.push(m);
+}
+
+function refreshDeviceMarkers(){
+  try { deviceMarkers.forEach(m=>m.remove()); } catch {}
+  deviceMarkers = [];
+  (loadDevices()||[]).forEach(createDeviceMarker);
 }
 
 function initUI(){
