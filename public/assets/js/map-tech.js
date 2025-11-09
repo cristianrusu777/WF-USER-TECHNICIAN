@@ -150,7 +150,14 @@ function makeTechCamera(c) {
   const region = regionFromLatLng(c.lat, c.lng);
   // Track the camera's original source name to support persistent overrides
   const originalName = c.originalName || c.name;
-  return { ...c, originalName, region, status, bitrateMbps, temperatureC, storageUsed, uptimeHrs, lastHeartbeatMin, firmware, ip };
+  // Description precedence: local override > seeded DataFetcher > empty
+  const localDesc = (loadDescriptions()[c.name] || '').trim();
+  const description = localDesc || (typeof c.description === 'string' ? c.description : '');
+  return { ...c, originalName, region, description, status, bitrateMbps, temperatureC, storageUsed, uptimeHrs, lastHeartbeatMin, firmware, ip };
+}
+
+function loadDescriptions(){
+  try { return JSON.parse(localStorage.getItem('cameraDescriptions')||'{}'); } catch { return {}; }
 }
 
 const techCameras = DataFetcher.cameras.map(makeTechCamera);
@@ -593,10 +600,12 @@ function createMarker(c){
       const isBookmarked = bookmarked.has(c.name);
       const ds = getDisplayStatus(c);
       const statusClass = ds === 'online' ? 'status-online' : (ds === 'degraded' ? 'status-degraded' : 'status-offline');
+      const descHtml = (c.description && c.description.trim()) ? `<div class="text-muted" style="font-size:0.82rem; margin:0.2rem 0 0.35rem 0;">${c.description}</div>` : '';
       return `
         <div style="min-width: 220px">
           <strong>${c.name}</strong><br>
           <small>${c.region}</small><br>
+          ${descHtml}
           <div class="kv-grid" style="margin-top:.25rem;">
             <span class="kv kv-compact"><span class="kv-label">BR</span> <span class="${metricClass('bitrate', c.bitrateMbps)}">${c.bitrateMbps}</span> Mbps</span>
             <span class="kv kv-compact"><span class="kv-label">Temp</span> <span class="${metricClass('temp', c.temperatureC)}">${c.temperatureC}</span>°C</span>

@@ -481,6 +481,26 @@ tbody {
     padding: 1rem;
 }
 
+/* Tech Camera: fixed-size description box and scrollable panel */
+.tech-panel {
+  max-height: 80vh;
+  overflow: auto;
+}
+#t_desc {
+  display: block;
+  margin-top: 0.15rem;
+  width: 100%;
+  min-height: 3.25rem;   /* ~2 lines */
+  max-height: 6.5rem;    /* ~4 lines */
+  overflow: auto;
+  padding: 0.35rem 0.5rem;
+  background: #f8fafc;   /* slate-50 */
+  border: 1px solid #e5e7eb; /* gray-200 */
+  border-radius: 6px;
+  font-size: 0.85rem;    /* smaller text */
+  line-height: 1.25rem;
+}
+
 #rname {
     position: absolute;
     top: 0.5rem;
@@ -497,6 +517,10 @@ tbody {
     color: firebrick;
     font-weight: bolder;
     font-size: 1.2rem;
+}
+
+.live-offline {
+  color: #6b7280 !important; /* gray-500 */
 }
 
 /* Narrow the absolute position styling only to video preview overlays */
@@ -665,4 +689,28 @@ tbody {
   width: 100% !important;
   height: 360px !important; /* leave space for title and padding */
   display: block;
+}
+/* === Global Themed Scrollbars (applies everywhere) === */
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  /* thumb | track */
+  scrollbar-color: var(--green-300) var(--green-100);
+}
+/* WebKit (Chromium, Safari, Edge) */
+*::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+*::-webkit-scrollbar-track {
+  background: var(--green-100);
+  border-radius: var(--radius);
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--green-300);
+  border: 1px solid var(--green-200);
+  border-radius: var(--radius);
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--green-400);
 }

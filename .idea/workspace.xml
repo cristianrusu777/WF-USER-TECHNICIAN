@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82b24e4d-94d9-476c-98fe-dd50323e791b" name="Changes" comment="Adds technician device installation page with map integration and device management functionality.">
+    <list default="true" id="82b24e4d-94d9-476c-98fe-dd50323e791b" name="Changes" comment="Ensures deleted cameras are restored and visible upon renaming; improve search filter clearing for updated camera names.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/assets/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/install-tech.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/install-tech.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/camera-tech.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/camera-tech.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/assets/js/map-tech.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/map-tech.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/install-tech.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/install-tech.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/modules/DataFetcher.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/modules/DataFetcher.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/camera-tech.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/camera-tech.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +26,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -118,23 +120,8 @@
       <workItem from="1762445082707" duration="12012000" />
       <workItem from="1762495827218" duration="3333000" />
       <workItem from="1762502051668" duration="11197000" />
-      <workItem from="1762539984671" duration="1862000" />
-    </task>
-    <task id="LOCAL-00019" summary="Final: partial implementation of the data tab and adds some styling like backdrop filter">
-      <option name="closed" value="true" />
-      <created>1761641398289</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1761641398289</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Final: you can't enter data without propper subscription">
-      <option name="closed" value="true" />
-      <created>1761643522363</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1761643522363</updated>
+      <workItem from="1762539984671" duration="2361000" />
+      <workItem from="1762683901176" duration="8292000" />
     </task>
     <task id="LOCAL-00021" summary="Final: partial styling to the filter tab">
       <option name="closed" value="true" />
@@ -512,7 +499,23 @@
       <option name="project" value="LOCAL" />
       <updated>1762541205647</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="Enhances device installation workflow: improves map markers, refines input focus behavior, adds contextual guidance, and updates unassigned device grid layout.">
+      <option name="closed" value="true" />
+      <created>1762541914737</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1762541914737</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Ensures deleted cameras are restored and visible upon renaming; improve search filter clearing for updated camera names.">
+      <option name="closed" value="true" />
+      <created>1762542136507</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1762542136507</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -530,8 +533,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Improves modal behavior, UI consistency, and grid logic for camera wall" />
-    <MESSAGE value="Adds camera management modal" />
     <MESSAGE value="Enhances camera management with additional status controls, improves UI labels, and refines custom camera logic." />
     <MESSAGE value="Implements soft delete functionality for cameras, enhances status-based actions, and improves sorting and filtering logic." />
     <MESSAGE value="Refines camera status controls with inline buttons, enhances custom camera creation with timestamps, and improves sorting logic for custom cameras." />
@@ -555,6 +556,8 @@
     <MESSAGE value="adjusts column widths for better alignment and improve text overflow handling." />
     <MESSAGE value="Fixes unclosed `div` in data-tech.html and updates column width and text overflow handling in workspace configuration." />
     <MESSAGE value="Adds technician device installation page with map integration and device management functionality." />
-    <option name="LAST_COMMIT_MESSAGE" value="Adds technician device installation page with map integration and device management functionality." />
+    <MESSAGE value="Enhances device installation workflow: improves map markers, refines input focus behavior, adds contextual guidance, and updates unassigned device grid layout." />
+    <MESSAGE value="Ensures deleted cameras are restored and visible upon renaming; improve search filter clearing for updated camera names." />
+    <option name="LAST_COMMIT_MESSAGE" value="Ensures deleted cameras are restored and visible upon renaming; improve search filter clearing for updated camera names." />
   </component>
 </project>

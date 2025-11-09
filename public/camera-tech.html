@@ -44,6 +44,10 @@
         </div>
         <div class="card col-md-3 l tech-panel">
             <h3 class="mb-3">Technical Details</h3>
+            <div class="mb-3">
+                <strong>Description:</strong>
+                <textarea id="t_desc" class="form-control" placeholder="No description yet..." rows="3" style="margin-top:0.35rem;"></textarea>
+            </div>
             <div class="mb-2"><strong>Status:</strong> <span id="t_status" class="status-badge status-offline">-</span></div>
             <div class="mb-2"><strong>Bitrate:</strong> <span id="t_bitrate">-</span> Mbps</div>
             <div class="mb-2"><strong>Temperature:</strong> <span id="t_temp">-</span> °C</div>
@@ -53,9 +57,25 @@
             <div class="mb-2"><strong>Firmware:</strong> <span id="t_firmware">-</span></div>
             <div class="mb-3"><strong>IP:</strong> <code id="t_ip" style="font-family: monospace; display: inline-block; padding: 0.1rem 0.25rem; background: #f6f8fa; border-radius: 4px;">-</code></div>
             <div class="d-grid gap-2">
-                <button id="btnRestart" class="btn-tech">Restart Camera</button>
-                <button id="btnUpdate" class="btn-tech">Update Firmware</button>
-                <button id="btnDiagnose" class="btn-tech">Run Diagnostics</button>
+                <button id="btnActions" class="btn-tech" data-bs-toggle="modal" data-bs-target="#camActionsModal">Camera Actions</button>
+            </div>
+            <!-- Camera Actions Modal -->
+            <div class="modal fade" id="camActionsModal" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Camera Actions</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body d-grid gap-2">
+                    <button id="btnUpdate" class="btn-tech">Update Firmware</button>
+                    <button id="btnDiagnose" class="btn-tech">Run Diagnostics</button>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary-tech" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
             </div>
             <hr/>
             <div class="mb-2">

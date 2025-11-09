@@ -1,4 +1,5 @@
 // Technician camera details page wiring (wireframe-only)
+import * as DataFetcher from "./modules/DataFetcher.js";
 
 // Auth gate for technician pages
 if (localStorage.getItem('role') !== 'technician') {
@@ -30,6 +31,55 @@ function metricClass(name, value){
     default:
       return [];
   }
+}
+
+// Simple helpers for description persistence
+function loadDescriptions(){
+  try { return JSON.parse(localStorage.getItem('cameraDescriptions')||'{}'); } catch { return {}; }
+}
+function saveDescriptions(obj){
+  localStorage.setItem('cameraDescriptions', JSON.stringify(obj||{}));
+}
+
+function seedDescriptionsIfEmpty(){
+  const cur = loadDescriptions();
+  if (cur && Object.keys(cur).length > 0) return;
+  const seed = {
+    "Grizzly Cam - Yellowstone": "Monitors grizzly activity near river crossings in Yellowstone.",
+    "Eagle Eye - Yosemite": "High vantage point for raptors and cliff wildlife in Yosemite.",
+    "Lion Lookout - Serengeti": "Oversees lion pride territory and migration routes.",
+    "Kangaroo Cam - Outback": "Tracks kangaroo movement in arid outback conditions.",
+    "Penguin Patrol - McMurdo": "Observes penguin colonies near McMurdo Station."
+  };
+  try { saveDescriptions(seed); } catch {}
+}
+
+function debounce(fn, wait=300){
+  let t; return (...args)=>{ clearTimeout(t); t = setTimeout(()=>fn(...args), wait); };
+}
+
+function loadNameOverrides(){
+  try { return JSON.parse(localStorage.getItem('nameOverrides')||'{}'); } catch { return {}; }
+}
+
+function tryResolveCoordsByName(rname){
+  // 1) custom cameras from adminCustomCameras
+  try {
+    const customs = JSON.parse(localStorage.getItem('adminCustomCameras')||'[]')||[];
+    const hit = customs.find(c=>c.name===rname);
+    if (hit) return { lat: Number(hit.lat), lng: Number(hit.lng) };
+  } catch {}
+  // 2) renamed base camera: reverse-lookup nameOverrides (original -> new)
+  const ov = loadNameOverrides();
+  const original = Object.keys(ov).find(k => ov[k] === rname);
+  if (original){
+    const base = (DataFetcher.cameras||[]).find(c=>c.name===original);
+    if (base) return { lat: Number(base.lat), lng: Number(base.lng) };
+  }
+  // 3) direct match in base list
+  const direct = (DataFetcher.cameras||[]).find(c=>c.name===rname);
+  if (direct) return { lat: Number(direct.lat), lng: Number(direct.lng) };
+  return null;
 }
 
 function mockDetails() {
@@ -86,6 +136,27 @@ function init() {
   document.querySelector("#lstatus").textContent = lstatus;
 
   const d = mockDetails();
+  // Populate description from persistence; default none
+  seedDescriptionsIfEmpty();
+  const descEl = document.querySelector('#t_desc');
+  const descMap = loadDescriptions();
+  // If there is a seeded description in DataFetcher, use it only when no local value exists
+  let currentDesc = (descMap[rname] || '').trim();
+  if (!currentDesc) {
+    // Try base or override name
+    const base = (DataFetcher.cameras||[]).find(c=>c.name===rname);
+    currentDesc = (base?.description || '').trim();
+  }
+  if (descEl) descEl.value = currentDesc;
+  const doSave = ()=>{
+    const map = loadDescriptions();
+    const val = String(descEl?.value||'').trim();
+    if (!val) { delete map[rname]; } else { map[rname] = val; }
+    saveDescriptions(map);
+  };
+  // Save on blur and while typing (debounced)
+  descEl?.addEventListener('blur', doSave);
+  descEl?.addEventListener('input', debounce(doSave, 250));
   // If there is an override, display it instead of mock
   d.status = getDisplayStatus(rname, d.status);
   const $status = document.querySelector("#t_status");
@@ -94,6 +165,12 @@ function init() {
   if (d.status === "online") $status.classList.add("status-online");
   else if (d.status === "degraded") $status.classList.add("status-degraded");
   else $status.classList.add("status-offline");
+  // Top-right live/offline indicator
+  const liveEl = document.querySelector('#lstatus');
+  if (liveEl){
+    if (d.status === 'offline') { liveEl.textContent = 'Offline'; liveEl.classList.add('live-offline'); }
+    else { liveEl.textContent = 'Live ●'; liveEl.classList.remove('live-offline'); }
+  }
   const $bitrate = document.querySelector("#t_bitrate");
   const $temp = document.querySelector("#t_temp");
   const $storage = document.querySelector("#t_storage");
@@ -112,14 +189,11 @@ function init() {
   document.querySelector("#t_ip").textContent = d.ip;
 
   // Wire mocked actions
-  document.querySelector("#btnRestart").addEventListener("click", ()=>{
-    alert("Restart command queued (mock)");
+  document.querySelector("#btnUpdate")?.addEventListener("click", ()=>{
+    alert("Firmware update scheduled");
   });
-  document.querySelector("#btnUpdate").addEventListener("click", ()=>{
-    alert("Firmware update scheduled (mock)");
-  });
-  document.querySelector("#btnDiagnose").addEventListener("click", ()=>{
-    alert("Diagnostics started (mock)");
+  document.querySelector("#btnDiagnose")?.addEventListener("click", ()=>{
+    alert("Diagnostics started");
   });
 
   // Inline status picker
@@ -133,6 +207,12 @@ function init() {
       if (v === "online") $status.classList.add("status-online");
       else if (v === "degraded") $status.classList.add("status-degraded");
       else $status.classList.add("status-offline");
+      // Update top-right live/offline label
+      const liveEl = document.querySelector('#lstatus');
+      if (liveEl){
+        if (v === 'offline') { liveEl.textContent = 'Offline'; liveEl.classList.add('live-offline'); }
+        else { liveEl.textContent = 'Live ●'; liveEl.classList.remove('live-offline'); }
+      }
       // Update Delete button availability
       const $del = document.querySelector('#btnDeleteCam');
       if (v === 'offline') { $del.disabled = false; $del.title = ''; }
