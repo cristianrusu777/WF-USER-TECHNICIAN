@@ -15,6 +15,30 @@
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/styles-user.css">
 
+    <!-- Inline Leaflet popup design for user map -->
+    <style>
+        .leaflet-popup-content-wrapper,
+        .leaflet-popup-tip { background: #fff; }
+        .leaflet-popup-content-wrapper {
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 0.125rem solid var(--green-200);
+        }
+        .leaflet-popup-tip { box-shadow: var(--shadow); }
+        .leaflet-container a.leaflet-popup-close-button {
+            color: var(--gray-400);
+            font-weight: bold;
+            opacity: 0.9;
+        }
+        .leaflet-container a.leaflet-popup-close-button:hover { color: var(--green-400); }
+        .leaflet-popup-content { margin: 0.75rem 0.9rem; color: var(--gray-600); }
+        .leaflet-popup-content h5, .leaflet-popup-content h6 { margin: 0 0 0.35rem 0; color: var(--gray-700); }
+        .leaflet-popup-content p { margin: 0 0 0.5rem 0; }
+        .leaflet-popup-content a { color: var(--green-400); text-decoration: none; }
+        .leaflet-popup-content a:hover { text-decoration: underline; }
+        .leaflet-popup-content .btn { padding: 0.35rem 0.6rem; font-size: 0.9rem; }
+    </style>
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>

@@ -522,3 +522,11 @@ tbody {
     width: 100% !important;
     height: 100%;
 }
+
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    cursor: pointer;
+    padding: 0.2rem 0.25rem;
+    border-radius: 0.3rem;
+    background-color: var(--green-300);
+    color: white;
+}

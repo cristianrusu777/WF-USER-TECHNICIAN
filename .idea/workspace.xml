@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82b24e4d-94d9-476c-98fe-dd50323e791b" name="Changes" comment="Migrates technician login to email-based authentication, updates validation logic, and enhances profile management with account deletion functionality. Adds heatmap toggle and download options for video feeds.">
-      <change beforePath="$PROJECT_DIR$/public/assets/js/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/map.js" afterDir="false" />
+    <list default="true" id="82b24e4d-94d9-476c-98fe-dd50323e791b" name="Changes" comment="Updates email input placeholders across login, registration">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/map.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/map.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,23 +127,7 @@
       <workItem from="1763293138492" duration="322000" />
       <workItem from="1765786385673" duration="3113000" />
       <workItem from="1765873129919" duration="5117000" />
-      <workItem from="1765879498716" duration="1351000" />
-    </task>
-    <task id="LOCAL-00027" summary="Joke: adds green">
-      <option name="closed" value="true" />
-      <created>1761841015333</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1761841015333</updated>
-    </task>
-    <task id="LOCAL-00028" summary="Final: reverts joke :-)">
-      <option name="closed" value="true" />
-      <created>1761841409677</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1761841409677</updated>
+      <workItem from="1765879498716" duration="2112000" />
     </task>
     <task id="LOCAL-00029" summary="Final: scroll improvements">
       <option name="closed" value="true" />
@@ -519,7 +505,23 @@
       <option name="project" value="LOCAL" />
       <updated>1765880605159</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="Enhances heatmap visualization on the map with improved intensity calculations and gradient options">
+      <option name="closed" value="true" />
+      <created>1765880904202</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1765880904202</updated>
+    </task>
+    <task id="LOCAL-00077" summary="Updates email input placeholders across login, registration">
+      <option name="closed" value="true" />
+      <created>1765881046942</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1765881046942</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -537,8 +539,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Implements new UI styles" />
-    <MESSAGE value="Adds unassigned device markers" />
     <MESSAGE value="Enhances device and camera management with unassigned device handling, improves modal interactions, and refines UI behavior." />
     <MESSAGE value="Refines UI components for device management, improves button usability, and enhances unassigned device handling." />
     <MESSAGE value="Adds camera renaming feature, enhances status filtering, and improves camera table rendering logic." />
@@ -562,7 +562,9 @@
     <MESSAGE value="adjusts layout for video and filter sections, and ensures consistent styling for buttons and containers." />
     <MESSAGE value="refines layout and styles for notes list, adds responsive form handling, improves button alignment, and implements email update functionality in profile management." />
     <MESSAGE value="Migrates technician login to email-based authentication, updates validation logic, and enhances profile management with account deletion functionality. Adds heatmap toggle and download options for video feeds." />
-    <option name="LAST_COMMIT_MESSAGE" value="Migrates technician login to email-based authentication, updates validation logic, and enhances profile management with account deletion functionality. Adds heatmap toggle and download options for video feeds." />
+    <MESSAGE value="Enhances heatmap visualization on the map with improved intensity calculations and gradient options" />
+    <MESSAGE value="Updates email input placeholders across login, registration" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updates email input placeholders across login, registration" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
