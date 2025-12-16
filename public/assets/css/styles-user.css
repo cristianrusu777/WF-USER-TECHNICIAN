@@ -18,6 +18,22 @@
     }
 }
 
+/* === Generic Buttons (login, register, logout, etc.) === */
+.btn {
+    color: var(--gray-100);
+    background-color: var(--green-300);
+    border: none;
+    border-radius: var(--radius);
+    padding: 0.5rem 0.75rem;
+    box-shadow: var(--shadow);
+}
+
+.btn:hover,
+.btn:focus {
+    color: var(--gray-100);
+    background-color: var(--green-400);
+}
+
 /* === Header (title, nav & logout) & Main & Footer (copyright message) === */
 header, footer {
     color: var(--gray-100) !important;
@@ -180,6 +196,17 @@ footer {
             list-style: circle;
         }
 
+        & .price {
+            align-self: center;
+            margin: 0.5rem 0 0.75rem 0;
+            padding: 0.25rem 0.5rem;
+            color: var(--green-500);
+            background-color: var(--green-100);
+            border: 0.1rem solid var(--green-200);
+            border-radius: var(--radius);
+            font-weight: 700;
+        }
+
         & button {
             align-self: center;
             margin-top: auto;
@@ -193,9 +220,11 @@ footer {
 
     & .selected {
         background-color: var(--accent-gold-300);
+        color: #111;
 
         &:hover {
             background-color: var(--accent-gold-400) !important;
+            color: #111;
         }
     }
 }

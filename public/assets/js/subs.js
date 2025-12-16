@@ -8,7 +8,8 @@ function highlightSelectedTier(buttons, tier) {
 function setupSubscriptionButtons() {
     const buttons = document.querySelectorAll(".subscriptionBtn");
     const popup = document.getElementById("confirmPopup");
-    let selectedTier = localStorage.getItem("tier") || "Basic";
+    // Prefer per-user tier if available via auth.js helpers
+    let selectedTier = (window.Auth && Auth.getCurrentUser() && Auth.getUserTier(Auth.getCurrentUser())) || localStorage.getItem("tier") || "Basic";
     let pendingTier = null;
 
     popup.style.display = "none";
@@ -39,6 +40,11 @@ function setupSubscriptionButtons() {
                     popup.style.display = "none";
                 });
             } else {
+                // Require login to manage subscription
+                if (!(window.Auth && Auth.getCurrentUser())) {
+                    window.location = './user-login.html?redirect=subs.html';
+                    return;
+                }
                 popup.innerHTML = `
                     <p>Are you sure you want to purchase the selected subscription?</p>
                     <button id="cancelBtn">Cancel</button>
@@ -55,6 +61,12 @@ function setupSubscriptionButtons() {
 
                 document.getElementById("acceptBtn").addEventListener("click", () => {
                     selectedTier = pendingTier;
+                    // Save per-user and legacy global key for compatibility
+                    try {
+                        if (window.Auth && Auth.getCurrentUser()) {
+                            Auth.setUserTier(Auth.getCurrentUser(), selectedTier);
+                        }
+                    } catch(e) {}
                     localStorage.setItem("tier", selectedTier);
                     highlightSelectedTier(buttons, selectedTier);
                     pendingTier = null;

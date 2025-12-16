@@ -4,7 +4,17 @@ window.view = function(name) {
     window.location = "./camera.html";
 }
 
-if (localStorage.getItem("tier") !== "Researcher") {
+function getEffectiveTier(){
+    try {
+        if (window.Auth && Auth.getCurrentUser()){
+            return Auth.getUserTier(Auth.getCurrentUser());
+        }
+    } catch(e) {}
+    return localStorage.getItem("tier");
+}
+
+const tier = getEffectiveTier();
+if (tier !== "Researcher") {
     document.querySelector("#subscriptionError").style.display = "block";
     document.querySelector("main").style.filter = "blur(2px)";
 }

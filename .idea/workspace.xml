@@ -4,13 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82b24e4d-94d9-476c-98fe-dd50323e791b" name="Changes" comment="Ensures deleted cameras are restored and visible upon renaming; improve search filter clearing for updated camera names.">
+    <list default="true" id="82b24e4d-94d9-476c-98fe-dd50323e791b" name="Changes" comment="Adds camera descriptions, improve UI for technician details">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/camera-tech.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/camera-tech.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/map-tech.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/map-tech.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/modules/DataFetcher.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/modules/DataFetcher.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/camera-tech.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/camera-tech.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/styles-user.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/styles-user.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/camera.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/camera.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/data.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/data.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/subs.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/subs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/authentication.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/authentication.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/camera.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/camera.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/data.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/subs.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/subs.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +57,9 @@
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/niels/WebstormProjects/POC-WF/public/assets/css&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -63,6 +68,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -77,7 +83,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-WS-252.26830.93" />
+        <option value="bundled-js-predefined-d6986cc7102b-a71380e98a7c-JavaScript-WS-252.28238.10" />
       </set>
     </attachedChunks>
   </component>
@@ -121,15 +127,12 @@
       <workItem from="1762495827218" duration="3333000" />
       <workItem from="1762502051668" duration="11197000" />
       <workItem from="1762539984671" duration="2361000" />
-      <workItem from="1762683901176" duration="8292000" />
-    </task>
-    <task id="LOCAL-00021" summary="Final: partial styling to the filter tab">
-      <option name="closed" value="true" />
-      <created>1761650869101</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1761650869101</updated>
+      <workItem from="1762683901176" duration="8400000" />
+      <workItem from="1762930341009" duration="645000" />
+      <workItem from="1763020972474" duration="654000" />
+      <workItem from="1763293138492" duration="322000" />
+      <workItem from="1765786385673" duration="3113000" />
+      <workItem from="1765873129919" duration="3142000" />
     </task>
     <task id="LOCAL-00022" summary="Final: almost done styling">
       <option name="closed" value="true" />
@@ -515,7 +518,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762542136507</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="Adds camera descriptions, improve UI for technician details">
+      <option name="closed" value="true" />
+      <created>1762694394967</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1762694394967</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -533,7 +544,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Enhances camera management with additional status controls, improves UI labels, and refines custom camera logic." />
     <MESSAGE value="Implements soft delete functionality for cameras, enhances status-based actions, and improves sorting and filtering logic." />
     <MESSAGE value="Refines camera status controls with inline buttons, enhances custom camera creation with timestamps, and improves sorting logic for custom cameras." />
     <MESSAGE value="Improves camera wall styles" />
@@ -558,6 +568,15 @@
     <MESSAGE value="Adds technician device installation page with map integration and device management functionality." />
     <MESSAGE value="Enhances device installation workflow: improves map markers, refines input focus behavior, adds contextual guidance, and updates unassigned device grid layout." />
     <MESSAGE value="Ensures deleted cameras are restored and visible upon renaming; improve search filter clearing for updated camera names." />
-    <option name="LAST_COMMIT_MESSAGE" value="Ensures deleted cameras are restored and visible upon renaming; improve search filter clearing for updated camera names." />
+    <MESSAGE value="Adds camera descriptions, improve UI for technician details" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adds camera descriptions, improve UI for technician details" />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
   </component>
 </project>

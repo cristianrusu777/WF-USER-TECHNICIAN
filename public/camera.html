@@ -19,6 +19,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="assets/js/auth.js"></script>
     <script src="assets/js/camera.js" type="module"></script>
 </head>
 <body>
@@ -42,9 +43,19 @@
     <div class="row vlc">
         <div class="card v">
             <div class="position-relative rounded">
-                <video src="v.mp4" class="w-100 rounded" controls autoplay muted loop></video>
+                <video id="mainVideo" src="v.mp4" class="w-100 rounded" controls autoplay muted loop></video>
                 <span id="rname">Unknown Camera</span>
                 <span id="lstatus">Live ●</span>
+            </div>
+            <div class="p-3">
+                <h5 class="mb-2">Notes</h5>
+                <form id="noteForm" class="mb-2">
+                    <div class="input-group">
+                        <input id="noteText" type="text" class="form-control" placeholder="Add a note for the current timestamp" required />
+                        <button class="btn" type="submit">Add</button>
+                    </div>
+                </form>
+                <ul id="notesList" class="list-group"></ul>
             </div>
         </div>
         <div class="card col-md-3 l">

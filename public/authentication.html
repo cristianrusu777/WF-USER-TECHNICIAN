@@ -28,7 +28,7 @@
     <div class="container vh-100 d-flex justify-content-center align-items-center">
         <div class="text-center">
             <h3 class="mb-4">Wildlife Detection System</h3>
-            <a id="authBtn" class="btn d-block mb-2" href="./map.html">Authenticate</a>
+            <a id="authBtn" class="btn d-block mb-2" href="./user-login.html">Authenticate</a>
             <a id="techBtn" class="btn d-block" href="./tech-login.html">Technician Login</a>
         </div>
     </div>
@@ -36,7 +36,6 @@
 
 
 <script>
-  // Preserve original layout. Only set role and allow normal navigation via hrefs.
   document.querySelector('#authBtn').addEventListener('click', ()=>{
     localStorage.setItem('role','user');
   });
