@@ -39,7 +39,38 @@
     getCurrentUser(){ return localStorage.getItem(SESSION_KEY); },
     getUserTier(email){ const u = loadUsers()[normEmail(email)]; return u?.tier || 'Basic'; },
     setUserTier(email, tier){ const db = loadUsers(); const key = normEmail(email); if (db[key]) { db[key].tier = tier; saveUsers(db);} },
-    getUserAdriaId(email){ const u = loadUsers()[normEmail(email)]; return u?.adriaId || ''; }
+    getUserAdriaId(email){ const u = loadUsers()[normEmail(email)]; return u?.adriaId || ''; },
+    changeEmail(oldEmail, newEmail){
+      const from = normEmail(oldEmail);
+      const to = normEmail(newEmail);
+      if (!isValidEmail(to)) throw new Error('Invalid email');
+      const db = loadUsers();
+      if (!db[from]) throw new Error('Current user not found');
+      if (db[to]) throw new Error('Email already in use');
+      db[to] = { ...db[from], email: to };
+      delete db[from];
+      saveUsers(db);
+      // migrate notes store keys
+      try {
+        const raw = localStorage.getItem('cameraNotes.v1');
+        if (raw){
+          const notes = JSON.parse(raw)||{};
+          const prefix = from + '::';
+          const updated = {};
+          Object.keys(notes).forEach(k=>{
+            if (k.startsWith(prefix)){
+              updated[to + '::' + k.substring(prefix.length)] = notes[k];
+            } else {
+              updated[k] = notes[k];
+            }
+          });
+          localStorage.setItem('cameraNotes.v1', JSON.stringify(updated));
+        }
+      } catch{}
+      // update session
+      localStorage.setItem(SESSION_KEY, to);
+      return { email: to };
+    }
   };
 
   window.Auth = Auth;

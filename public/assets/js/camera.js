@@ -30,15 +30,19 @@ document.querySelector("#lstatus").textContent = localStorage.getItem("lstatus")
     arr.sort((a,b)=> a.t - b.t);
     arr.forEach((n, idx)=>{
       const li = document.createElement('li');
-      li.className = 'list-group-item d-flex justify-content-between align-items-center';
-      const btn = document.createElement('button');
-      btn.className = 'btn btn-sm';
-      btn.textContent = secondsToHMS(n.t);
-      btn.addEventListener('click', ()=>{ if (video){ video.currentTime = n.t; video.play(); }});
-      const span = document.createElement('span');
-      span.textContent = n.text;
+      li.className = 'list-group-item note-item';
+
+      const timeBtn = document.createElement('button');
+      timeBtn.className = 'btn btn-sm note-time';
+      timeBtn.textContent = secondsToHMS(n.t);
+      timeBtn.addEventListener('click', ()=>{ if (video){ video.currentTime = n.t; video.play(); }});
+
+      const text = document.createElement('div');
+      text.className = 'note-text';
+      text.textContent = n.text;
+
       const del = document.createElement('button');
-      del.className = 'btn btn-sm';
+      del.className = 'btn btn-sm note-del';
       del.textContent = 'Delete';
       del.addEventListener('click', ()=>{
         const store = loadStore();
@@ -49,11 +53,9 @@ document.querySelector("#lstatus").textContent = localStorage.getItem("lstatus")
         saveStore(store);
         render();
       });
-      const left = document.createElement('div');
-      left.className = 'd-flex align-items-center gap-2';
-      left.appendChild(btn);
-      left.appendChild(span);
-      li.appendChild(left);
+
+      li.appendChild(timeBtn);
+      li.appendChild(text);
       li.appendChild(del);
       list.appendChild(li);
     });

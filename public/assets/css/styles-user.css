@@ -458,10 +458,40 @@ tbody {
 }
 
 /* Notes list: ensure full text visibility and proper wrapping */
-.list-group-item .d-flex span {
+.note-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.note-item .note-time,
+.note-item .note-del {
+    flex: 0 0 auto;
+}
+.note-item .note-text {
     flex: 1 1 auto;
+    text-align: center;
     white-space: normal;
     word-break: break-word;
+}
+
+/* Notes input: prevent overlap between text field and Add button */
+#noteForm .input-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+#noteForm .input-group > .form-control {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+#noteForm .input-group > .btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+@media (max-width: 576px) {
+    #noteForm .input-group { flex-wrap: wrap; }
+    #noteForm .input-group > .form-control { flex: 1 1 100%; }
+    #noteForm .input-group > .btn { width: 100%; }
 }
 
 /* Keep Generate button within the filter section, not pushed to bottom */

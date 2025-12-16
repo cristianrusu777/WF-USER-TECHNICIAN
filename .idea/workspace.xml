@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82b24e4d-94d9-476c-98fe-dd50323e791b" name="Changes" comment="Implements passwordless authentication prototype: adds email-based login/registration with Adria ID assignment, introduces `auth.js` helper, and integrates new user-login, user-register, and profile pages.">
+    <list default="true" id="82b24e4d-94d9-476c-98fe-dd50323e791b" name="Changes" comment="adjusts layout for video and filter sections, and ensures consistent styling for buttons and containers.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/assets/css/styles-user.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/styles-user.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/camera.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/camera.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/profile.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,15 +128,7 @@
       <workItem from="1763020972474" duration="654000" />
       <workItem from="1763293138492" duration="322000" />
       <workItem from="1765786385673" duration="3113000" />
-      <workItem from="1765873129919" duration="3759000" />
-    </task>
-    <task id="LOCAL-00024" summary="Final: finished all the data tab has to offer">
-      <option name="closed" value="true" />
-      <created>1761655094766</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1761655094766</updated>
+      <workItem from="1765873129919" duration="4825000" />
     </task>
     <task id="LOCAL-00025" summary="Final: partial implementation of the video tab">
       <option name="closed" value="true" />
@@ -518,7 +514,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765877576504</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="adjusts layout for video and filter sections, and ensures consistent styling for buttons and containers.">
+      <option name="closed" value="true" />
+      <created>1765878348079</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1765878348079</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -536,7 +540,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Improves camera wall styles" />
     <MESSAGE value="Enhances camera management features" />
     <MESSAGE value="Enhances camera management" />
     <MESSAGE value="Implements new UI styles" />
@@ -561,7 +564,8 @@
     <MESSAGE value="Adds camera descriptions, improve UI for technician details" />
     <MESSAGE value="Refines subscription and authentication flows: adds user-tier handling, enhances button UI, integrates timestamped notes for videos, and centralizes tier checks via `auth.js` helpers." />
     <MESSAGE value="Implements passwordless authentication prototype: adds email-based login/registration with Adria ID assignment, introduces `auth.js` helper, and integrates new user-login, user-register, and profile pages." />
-    <option name="LAST_COMMIT_MESSAGE" value="Implements passwordless authentication prototype: adds email-based login/registration with Adria ID assignment, introduces `auth.js` helper, and integrates new user-login, user-register, and profile pages." />
+    <MESSAGE value="adjusts layout for video and filter sections, and ensures consistent styling for buttons and containers." />
+    <option name="LAST_COMMIT_MESSAGE" value="adjusts layout for video and filter sections, and ensures consistent styling for buttons and containers." />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
