@@ -22,9 +22,6 @@ window.view = function(name) {
     localStorage.setItem("lstatus", "Live ●");
     window.location = "./camera.html";
 }
-
-init();
-
 function init() {
     initializeMap();
     initializeList();
@@ -33,6 +30,8 @@ function init() {
 
 let map;
 let heatLayer;
+
+init();
 
 function initializeMap() {
     map = L.map("map").setView([51.21, 3.22], 5);
@@ -50,8 +49,10 @@ function initializeMap() {
 
     // Heatmap support (motion activity mock)
     function intensityFromName(name){
+        // Deterministic pseudo-random intensity boosted into 0.6 - 1.0 range
         let h=0; for (let i=0;i<name.length;i++){ h=(h*31 + name.charCodeAt(i))>>>0; }
-        return 0.2 + (h % 80) / 100; // 0.2 - 1.0
+        const base = (h % 100) / 100; // 0-1
+        return 0.6 + Math.pow(base, 0.5) * 0.4; // emphasize higher values, keep >= 0.6
     }
     function buildHeatPoints(){
         return DataFetcher.cameras.map(c => [c.lat, c.lng, intensityFromName(c.name)]);
@@ -59,7 +60,21 @@ function initializeMap() {
     const toggle = document.getElementById('heatToggle');
     if (toggle){
         const ensureLayer = () => {
-            if (!heatLayer){ heatLayer = L.heatLayer(buildHeatPoints(), { radius: 18, blur: 15, maxZoom: 10 }); }
+            if (!heatLayer){
+                heatLayer = L.heatLayer(buildHeatPoints(), {
+                    radius: 28,
+                    blur: 18,
+                    maxZoom: 10,
+                    minOpacity: 0.5,
+                    gradient: {
+                        0.0: '#ffe5e5',
+                        0.25: '#ffb3b3',
+                        0.5: '#ff8080',
+                        0.75: '#ff4d4d',
+                        1.0: '#ff0000'
+                    }
+                });
+            }
         };
         toggle.addEventListener('change', ()=>{
             ensureLayer();
