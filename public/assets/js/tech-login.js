@@ -1,27 +1,25 @@
 // Wireframe-only technician credentials handling
 
-function validate(id, pwd) {
-  // Mock validation: require non-empty and a minimal shape for id
-  return /^T-?\d{3,}$/.test(id) && (pwd?.length || 0) >= 4;
-}
+function isValidEmail(e){ return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e||''); }
 
 function init(){
   const form = document.querySelector('#techLoginForm');
-  const id = document.querySelector('#techId');
-  const pwd = document.querySelector('#techPwd');
+  const email = document.querySelector('#techEmail');
   const error = document.querySelector('#techError');
 
   form.addEventListener('submit', (e)=>{
     e.preventDefault();
-    if (!validate(id.value.trim(), pwd.value)) {
+    if (!isValidEmail(email.value)) {
       error.style.display = 'block';
       return;
     }
     error.style.display = 'none';
     localStorage.setItem('role','technician');
-    localStorage.setItem('techId', id.value.trim());
+    localStorage.setItem('techEmail', email.value.trim().toLowerCase());
     window.location = './map-tech.html';
   });
 }
+
+document.addEventListener('DOMContentLoaded', init);
 
 init();

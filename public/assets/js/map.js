@@ -31,8 +31,11 @@ function init() {
     initializeFilter();
 }
 
+let map;
+let heatLayer;
+
 function initializeMap() {
-    const map = L.map("map").setView([51.21, 3.22], 5);
+    map = L.map("map").setView([51.21, 3.22], 5);
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution: '© OpenStreetMap contributors'
@@ -44,6 +47,25 @@ function initializeMap() {
             return `<div>${c.name}<br><button onclick="view('${c.name}')" style="margin-right: 0.5rem;">View</button><button class="${isBookmarked ? "bookmarked" : ""}" onclick="toggleBookmark('${c.name}')">${isBookmarked ? 'Bookmarked' : 'Bookmark'}</button></div>`;
         });
     });
+
+    // Heatmap support (motion activity mock)
+    function intensityFromName(name){
+        let h=0; for (let i=0;i<name.length;i++){ h=(h*31 + name.charCodeAt(i))>>>0; }
+        return 0.2 + (h % 80) / 100; // 0.2 - 1.0
+    }
+    function buildHeatPoints(){
+        return DataFetcher.cameras.map(c => [c.lat, c.lng, intensityFromName(c.name)]);
+    }
+    const toggle = document.getElementById('heatToggle');
+    if (toggle){
+        const ensureLayer = () => {
+            if (!heatLayer){ heatLayer = L.heatLayer(buildHeatPoints(), { radius: 18, blur: 15, maxZoom: 10 }); }
+        };
+        toggle.addEventListener('change', ()=>{
+            ensureLayer();
+            if (toggle.checked){ heatLayer.addTo(map); } else { if (map && heatLayer) map.removeLayer(heatLayer); }
+        });
+    }
 }
 
 function initializeList(cameras = DataFetcher.cameras) {

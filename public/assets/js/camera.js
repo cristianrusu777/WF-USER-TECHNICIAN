@@ -9,6 +9,23 @@ document.querySelector("#lstatus").textContent = localStorage.getItem("lstatus")
   const list = document.querySelector('#notesList');
   const cameraName = localStorage.getItem('rname') || 'Unknown Camera';
 
+  // Setup download buttons
+  try {
+    const mainDl = document.getElementById('downloadMain');
+    if (mainDl && video){
+      const fileBase = (cameraName || 'camera').replace(/[^a-z0-9]+/gi,'_').replace(/^_+|_+$/g,'');
+      mainDl.href = video.currentSrc || video.src;
+      mainDl.download = `${fileBase}_feed.mp4`;
+    }
+    document.querySelectorAll('.dl-video').forEach((a, idx)=>{
+      const sectionTitle = a.closest('.mb-3, div')?.querySelector('h6')?.textContent || `Nearby_${idx+1}`;
+      const fileBase = sectionTitle.replace(/[^a-z0-9]+/gi,'_').replace(/^_+|_+$/g,'');
+      const v = a.closest('.mb-3, div')?.querySelector('video');
+      if (v){ a.href = v.currentSrc || v.src; }
+      a.download = `${fileBase}_feed.mp4`;
+    });
+  } catch {}
+
   function loadStore(){
     try { return JSON.parse(localStorage.getItem('cameraNotes.v1')||'{}'); } catch { return {}; }
   }

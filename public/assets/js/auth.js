@@ -70,6 +70,27 @@
       // update session
       localStorage.setItem(SESSION_KEY, to);
       return { email: to };
+    },
+    deleteAccount(email){
+      const key = normEmail(email);
+      const db = loadUsers();
+      if (!db[key]) throw new Error('User not found');
+      delete db[key];
+      saveUsers(db);
+      // purge notes for this user
+      try {
+        const raw = localStorage.getItem('cameraNotes.v1');
+        if (raw){
+          const notes = JSON.parse(raw)||{};
+          const prefix = key + '::';
+          const updated = {};
+          Object.keys(notes).forEach(k=>{ if (!k.startsWith(prefix)) updated[k] = notes[k]; });
+          localStorage.setItem('cameraNotes.v1', JSON.stringify(updated));
+        }
+      } catch{}
+      // clear session if matching
+      if (localStorage.getItem(SESSION_KEY) === key){ localStorage.removeItem(SESSION_KEY); }
+      return true;
     }
   };
 

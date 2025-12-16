@@ -20,7 +20,10 @@
         <li class="nav-item"><a class="nav-link" href="./data.html">Data</a></li>
         <li class="nav-item"><a class="nav-link" href="./subs.html">Subscription</a></li>
       </ul>
-      <button id="logoutBtn" class="btn">Logout</button>
+      <div class="d-flex gap-2">
+        <button id="manageHeaderBtn" class="btn">Manage Profile</button>
+        <button id="logoutBtn" class="btn">Logout</button>
+      </div>
     </div>
   </nav>
 </header>
@@ -37,7 +40,22 @@
         <div class="mt-3">
           <button id="manageProfileBtn" class="btn btn-sm">Manage Profile</button>
         </div>
-        <form id="emailForm" class="mt-3" style="display:none;">
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Manage Profile Modal -->
+<div class="modal fade" id="manageProfileModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Manage Profile</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h6 class="mb-2">Change Email</h6>
+        <form id="emailForm" class="mb-3">
           <div class="mb-2">
             <label class="form-label">New Email</label>
             <input id="newEmail" type="email" class="form-control" placeholder="you@example.com" required />
@@ -46,10 +64,20 @@
           <div class="text-success mb-2" id="emailOk" style="display:none;"></div>
           <button class="btn btn-sm" type="submit">Save</button>
         </form>
+
+        <hr/>
+
+        <h6 class="mb-2 text-danger">Danger Zone</h6>
+        <p class="small text-muted">Delete your account and associated local data.</p>
+        <button id="deleteAccountBtn" class="btn btn-danger btn-sm">Delete Account</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
-</main>
+  </div>
+
 <script>
   (function(){
     let currentEmail = Auth.getCurrentUser();
@@ -64,18 +92,25 @@
       window.location = './authentication.html';
     });
 
+    // Manage Profile modal hooks
+    const modalEl = document.getElementById('manageProfileModal');
+    const modal = new bootstrap.Modal(modalEl);
+    const manageHeaderBtn = document.querySelector('#manageHeaderBtn');
     const manageBtn = document.querySelector('#manageProfileBtn');
     const emailForm = document.querySelector('#emailForm');
     const newEmail = document.querySelector('#newEmail');
     const emailErr = document.querySelector('#emailErr');
     const emailOk = document.querySelector('#emailOk');
+    const deleteBtn = document.querySelector('#deleteAccountBtn');
 
-    manageBtn.addEventListener('click', ()=>{
-      emailForm.style.display = emailForm.style.display === 'none' ? 'block' : 'none';
+    function openManage(){
       emailErr.style.display = 'none';
       emailOk.style.display = 'none';
       newEmail.value = '';
-    });
+      modal.show();
+    }
+    if (manageHeaderBtn) manageHeaderBtn.addEventListener('click', openManage);
+    if (manageBtn) manageBtn.addEventListener('click', openManage);
 
     emailForm.addEventListener('submit', (e)=>{
       e.preventDefault();
@@ -92,6 +127,17 @@
       } catch(ex){
         emailErr.textContent = ex.message || 'Could not update email';
         emailErr.style.display = 'block';
+      }
+    });
+
+    deleteBtn.addEventListener('click', ()=>{
+      if (!confirm('Are you sure you want to delete your account? This cannot be undone.')) return;
+      try {
+        Auth.deleteAccount(currentEmail);
+        localStorage.removeItem('role');
+        window.location = './authentication.html';
+      } catch(ex){
+        alert(ex.message || 'Failed to delete account');
       }
     });
   })();

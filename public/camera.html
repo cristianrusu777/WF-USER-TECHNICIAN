@@ -34,7 +34,10 @@
                 <li class="nav-item"><a class="nav-link" href="./data.html" data-tab="data">Data</a></li>
                 <li class="nav-item"><a class="nav-link" href="./subs.html" data-tab="subs">Subscription</a></li>
             </ul>
-            <a id="logout" class="btn" href="./authentication.html">Logout</a>
+            <div class="d-flex gap-2">
+                <a class="btn" href="./profile.html">Manage Profile</a>
+                <a id="logout" class="btn" href="./authentication.html">Logout</a>
+            </div>
         </div>
     </nav>
 </header>
@@ -46,6 +49,9 @@
                 <video id="mainVideo" src="v.mp4" class="w-100 rounded" controls autoplay muted loop></video>
                 <span id="rname">Unknown Camera</span>
                 <span id="lstatus">Live ●</span>
+            </div>
+            <div class="px-3 pt-2">
+                <a id="downloadMain" class="btn btn-sm" href="v.mp4" download>Download feed</a>
             </div>
             <div class="p-3">
                 <h5 class="mb-2">Notes</h5>
@@ -66,6 +72,7 @@
                     <video src="v.mp4" class="w-100 rounded" controls autoplay muted loop></video>
                     <span>Live ●</span>
                 </div>
+                <div class="pt-2"><a class="btn btn-sm dl-video" href="v.mp4" download>Download</a></div>
             </div>
             <div class="mb-3">
                 <h6>East Forest</h6>
@@ -73,6 +80,7 @@
                     <video src="v.mp4" class="w-100 rounded" controls autoplay muted loop></video>
                     <span>Live ●</span>
                 </div>
+                <div class="pt-2"><a class="btn btn-sm dl-video" href="v.mp4" download>Download</a></div>
             </div>
             <div>
                 <h6>South Forest</h6>
@@ -80,6 +88,7 @@
                     <video src="v.mp4" class="w-100 rounded" controls autoplay muted loop></video>
                     <span>Live ●</span>
                 </div>
+                <div class="pt-2"><a class="btn btn-sm dl-video" href="v.mp4" download>Download</a></div>
             </div>
         </div>
     </div>

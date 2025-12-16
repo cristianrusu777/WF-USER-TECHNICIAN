@@ -21,15 +21,11 @@
     <div class="container vh-100 d-flex justify-content-center align-items-center">
         <div class="card p-4" style="min-width: 360px; max-width: 420px;">
             <h4 class="text-center mb-3">Technician Login</h4>
-            <p class="text-muted text-center mb-4">Enter your credentials to continue.</p>
+            <p class="text-muted text-center mb-4">Enter your email to continue.</p>
             <form id="techLoginForm">
                 <div class="mb-3">
-                    <label for="techId" class="form-label">Technician ID</label>
-                    <input id="techId" class="form-control" placeholder="e.g. T-12345" required>
-                </div>
-                <div class="mb-3">
-                    <label for="techPwd" class="form-label">Password</label>
-                    <input id="techPwd" class="form-control" type="password" placeholder="••••••••" required>
+                    <label for="techEmail" class="form-label">Email</label>
+                    <input id="techEmail" type="email" class="form-control" placeholder="tech@example.com" required>
                 </div>
                 <div id="techError" class="text-danger small mb-3" style="display:none;">Invalid credentials. Please try again.</div>
                 <div class="d-grid gap-2">
